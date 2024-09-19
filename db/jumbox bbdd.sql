@@ -92,6 +92,7 @@ CREATE TABLE `pedido` (
 CREATE TABLE `producto` (
   `id_producto` int(11) NOT NULL,
   `fk_categoria` int(11) DEFAULT NULL,
+  `nombre` varchar(255) NOT NULL,
   `marca` varchar(255) NOT NULL,
   `precio` decimal(10,2) NOT NULL,
   `descripcion` text DEFAULT NULL,
