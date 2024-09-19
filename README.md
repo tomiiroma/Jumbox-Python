@@ -7,8 +7,9 @@ La plataforma de gestión de inventarios Jumbox está diseñada para optimizar l
 
 
 ### Características Principales
-Gestión Centralizada de Inventarios: Mantiene un registro unificado de los productos disponibles en todas las sucursales.
-Procesamiento de Pedidos: Facilita el envío y recepción de pedidos entre las diferentes ubicaciones.
+Gestión Centralizada de Inventarios:
+- Mantiene un registro unificado de los productos disponibles en todas las sucursales.
+- Procesamiento de Pedidos: Facilita el envío y recepción de pedidos entre las diferentes ubicaciones.
 
 
 ### Objetivo
