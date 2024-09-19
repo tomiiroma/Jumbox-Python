@@ -17,6 +17,5 @@ El objetivo principal de esta plataforma es mejorar la eficiencia operativa de J
 
 
 ### Tecnologías Utilizadas
-
--Python 
--Sql
+- Python 
+- Sql
