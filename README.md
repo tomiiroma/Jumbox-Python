@@ -79,6 +79,15 @@ Diagrama de Flujo de Creación de Productos: Este diagrama describirá el proces
 Diagrama de Flujo de Creación de Categorías: Este diagrama mostrará el proceso paso a paso para agregar y gestionar categorías dentro del sistema.
 [Visualizar Diagrama](https://drive.google.com/file/d/1lrYm0kE8UjbqD7Qw6xXH3JdOS3DqIzvB/view?usp=sharing)
 
+------------
+
+
+**Base de Datos**
+La base de datos del sistema se llama jumbox y está diseñada para almacenar información relacionada con productos, categorías, inventarios, pedidos y sucursales. A continuación se presenta el script SQL utilizado para crear la estructura de la base de datos.
+
+[Descargar SQL Dump](https://drive.google.com/file/d/1WYIBmXtLGFdGlk3vvCorVcRKfQR4wgtM/view?usp=sharing)
+
+[Visualizar Tablas de la Base de Datos](https://docs.google.com/spreadsheets/d/1cNVlbS90rQW3PqvcyU2LpM1sm1Ki76bpymOZKNxrplU/edit?usp=sharing)
 
 
 ------------
