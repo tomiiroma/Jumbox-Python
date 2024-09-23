@@ -49,7 +49,6 @@ class Producto:
             self.estado = estado
     
     def to_string(self):
-
     
         
         if self.estado == True:
@@ -60,21 +59,3 @@ class Producto:
         toString = "\n"+"Información del Producto"+"\nProducto: "+self.nombre+"\nCategoria: "+self.categoria +"\nMarca: "+self.marca+"\nPrecio: "+str(self.precio)+"\nDescripcion: "+self.descripcion+"\nEstado: "+estado_mensaje
 
         return toString
-
-
-producto = Producto("Televisor",10000,"Samsung",True,"El mejor","Televisores")
-
-
-print(producto.get_nombre())
-
-producto.set_nombre("Tostadora")
-
-producto.set_categoria("Electrodomesticos")
-
-print(producto.get_nombre())
-
-producto.set_estado(False)
-
-print(producto.get_estado())
-
-print(producto.to_string())
