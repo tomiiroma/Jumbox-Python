@@ -94,8 +94,8 @@ La base de datos del sistema se llama jumbox y está diseñada para almacenar in
 
 **Próximos pasos**:
 
-- Implementar la funcionalidad de cargar productos.
-- - Implementar la funcionalidad de cargar categorias.
+- Implementar la funcionalidad de crear,agregar,editar,eliminar productos.
+- Implementar la funcionalidad de crear,agregar,editar,eliminar  categorias.
 - Implementar la funcionalidad de transferencia de productos entre sucursales.
 - Desarrollar la clase Pedido para gestionar los pedidos entre sucursales.
-- Realizar pruebas exhaustivas de las funcionalidades ya implementadas para asegurar la correcta gestión del inventario y productos.
+- Realizar pruebas de las funcionalidades ya implementadas para asegurar la correcta gestión del inventario y productos.
