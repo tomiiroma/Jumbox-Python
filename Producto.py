@@ -1,15 +1,19 @@
 from typing import Any
 
-
 class Producto:
 
-    def __init__(self, nombre, precio, marca, estado, descripcion, categoria):
+    def __init__(self, idProducto,nombre, precio, marca, estado, descripcion, categoria):
+        self.idProducto = idProducto
         self.nombre = nombre
         self.precio = precio
         self.marca = marca
         self.estado = estado
         self.descripcion = descripcion
         self.categoria = categoria
+
+
+    def idProducto(self):
+        return self.idProducto
 
     def get_nombre(self):
         return self.nombre
@@ -49,7 +53,6 @@ class Producto:
             self.estado = estado
     
     def to_string(self):
-    
         
         if self.estado == True:
             estado_mensaje = "Disponible"
