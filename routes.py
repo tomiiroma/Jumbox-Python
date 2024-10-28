@@ -1,5 +1,5 @@
 from flask import Flask
-from modelo.Sucursal import Sucursal
+from app.models.Sucursal import Sucursal
 
 app = Flask(__name__)
 
