@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from app.models.Sucursal import Sucursal
+
 
 app = Flask(__name__)
 
@@ -15,6 +16,18 @@ def hello_world():
         ]
     return render_template("index.html", sucursales=sucursales)
 
+
+    
+@app.route("/formulario")
+def formulario():
+    return render_template('login.html')
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        return render_template("success.html")
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
