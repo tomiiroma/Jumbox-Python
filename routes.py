@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request
 from app.models.Sucursal import Sucursal
-
+import app.conexion as db
 
 app = Flask(__name__)
 
 
 @app.route("/",  methods=["GET", "POST"])
 def hello_world():
+    db.iniciar_db()
     message = ""
     if request.method == "POST":
         message = "Has iniciado sesión"
