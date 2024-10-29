@@ -31,25 +31,27 @@
     </nav>
 
     <div class="container">
-
         {% if message %}
         <h2 class="alert alert-success">{{ message }}</h2>
         {% endif %}
+
         <h1>Bienvenido a Jumbox</h1>
         <p>Esta es una aplicación simple para gestionar sucursales y productos.</p>
 
         <h2 class="mt-4">Lista de Sucursales</h2>
         <ul class="list-group">
+            {% if sucursales %}
             {% for sucursal in sucursales %}
                 <li class="list-group-item">
                     <strong>{{ sucursal.nombre_sucursal }}</strong><br>
-                    Ubicación: {{ sucursal.localidad }}, {{ sucursal.provincia }}<br>
+                    Ubicación: {{ sucursal.localidad }}, {{ sucursal.nombre_provincia }}<br>
                     Dirección: {{ sucursal.calle }} {{ sucursal.altura }}<br>
                     Teléfono: {{ sucursal.telefono }}
                 </li>
-            {% else %}
-                <li class="list-group-item">No hay sucursales disponibles.</li>
             {% endfor %}
+        {% else %}
+            <li class="list-group-item">No hay sucursales disponibles.</li>
+        {% endif %}
         </ul>
     </div>
 

@@ -1,14 +1,11 @@
-import sqlite3
+from conexion import obtener_conexion
 
+conn = obtener_conexion()
+cursor = conn.cursor()
 
-def insertar_usuario(fk_sucursal,nombre,email, contraseña,rol):
-    
-    conn = sqlite3.connect('database.db')
+def insertar_usuario(fk_sucursal,nombre,email, contraseña,rol):    
 
-# Crear un cursor para ejecutar comandos SQL
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO usuario (fk_sucursal, nombre, email, contraseña, rol) VALUES (?, ?, ?, ?, ?)",
-        (fk_sucursal, nombre, email, contraseña, rol))    
+    cursor.execute("INSERT INTO usuario (fk_sucursal, nombre, email, contraseña, rol) VALUES (?, ?, ?, ?, ?)",(fk_sucursal, nombre, email, contraseña, rol))    
     conn.commit()
 
 insertar_usuario(1,"jose", "jsoaaae@gmail.com", "contraseña", "usuario")
