@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, flash
+from flask import Flask, render_template, request, session, redirect,url_for
 from app.models.Sucursal import Sucursal
 import app.conexion as db
 from app.controller.sucursal_controlador import get_sucursal 
@@ -36,7 +36,19 @@ def formulario():
 
 @app.route("/logout")
 def logout():
-    return "cerrar sesion"
+    session.pop('usuario')
+    return "Cerrar sesion"
+
+@app.route("/pedidos")
+def pedidos():
+    if session:
+        return render_template("pedidos.html")
+    else:
+        return redirect(url_for("error"))
+    
+@app.route("/error")
+def error():
+    return render_template("erroracceso.html")
     
 
 if __name__ == "__main__":
