@@ -5,7 +5,7 @@ class Categoria:
     def __init__(self,id_categoria,nombre,visible):
         self.id_categoria = id_categoria
         self.nombre = nombre
-        self.visible = True
+        self.visible = visible
 
     def get_nombre_categoria(self):
         return self.nombre
@@ -14,7 +14,7 @@ class Categoria:
         return self.id_categoria
     
     def get_visible(self):
-        return f"Estado: {self.visible}"
+        return self.visible
     
     def set_nombre_categoria(self,nombre):
         if len(nombre)>0:

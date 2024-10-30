@@ -42,7 +42,30 @@ h1, h2 {
 .parrafobienvenidos{
     font-weight: 500;
 }
-#iconban{
-    font-size: 3.4em;
-    margin: 10px;
+
+.tablapadding{
+
+padding: 40px;
+
+}
+
+.titulo_centrado{
+
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.mboton{
+
+margin-left: 40px;
+margin-top: 20px;
+
+}
+
+.centrado{
+
+    text-align: center;
+    list-style-type: none; 
+    padding-left: 0;
+
 }
