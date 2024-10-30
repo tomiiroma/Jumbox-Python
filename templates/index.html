@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -32,30 +33,37 @@
             </div>
         </div>
     </nav>
+=======
+{% extends "layouts/layout.html" %}
+>>>>>>> origin/agus
 
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
     <div class="container">
-
-        {% if message %}
-        <h2 class="alert alert-success">{{ message }}</h2>
+        {% if success %}
+        <h2 class="alert alert-success">{{ success }}</h2>
         {% endif %}
-        <h1>Bienvenido a Jumbox</h1>
-        <p>Esta es una aplicación simple para gestionar sucursales y productos.</p>
 
-        <h2 class="mt-4">Lista de Sucursales</h2>
-        <ul class="list-group">
+        <h1 class="titulobienvenidos text-center">Bienvenido a Jumbox</h1>
+        <p class="parrafobienvenidos text-center">Programa de gestion para las sucursales y productos <strong>JUMBOX</strong>.</p>
+
+        <h2 class="my-4">Lista de Sucursales</h2>
+        <ul class="list-group lista-sucursales">
+            {% if sucursales %}
             {% for sucursal in sucursales %}
                 <li class="list-group-item">
                     <strong>{{ sucursal.nombre_sucursal }}</strong><br>
-                    Ubicación: {{ sucursal.localidad }}, {{ sucursal.provincia }}<br>
+                    Ubicación: {{ sucursal.localidad }}, {{ sucursal.nombre_provincia }}<br>
                     Dirección: {{ sucursal.calle }} {{ sucursal.altura }}<br>
                     Teléfono: {{ sucursal.telefono }}
                 </li>
-            {% else %}
-                <li class="list-group-item">No hay sucursales disponibles.</li>
+
             {% endfor %}
+        {% else %}
+            <li class="list-group-item">No hay sucursales disponibles.</li>
+        {% endif %}
         </ul>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock %}
