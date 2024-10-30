@@ -1,4 +1,3 @@
-
 from app.conexion import obtener_conexion
 
 conn = obtener_conexion()
