@@ -1,18 +1,15 @@
-from flask import Flask, render_template, request, session, flash
+from flask import Flask, render_template, request, session, redirect,url_for
 from app.models.Sucursal import Sucursal
-
-from app.controller.categoria_controller import agregar_categoria
 import app.conexion as db
 from app.controller.sucursal_controlador import get_sucursal 
 from app.controller.usuario_controlador import verificar_login
-
 
 app = Flask(__name__)
 app.secret_key = "secretkey"
 
 
 @app.route("/",  methods=["GET", "POST"])
-def hello_world():
+def home():
     db.iniciar_db()
     success = "Inicio de Sesion Exitoso"
     error="Email o contraseña incorrectas"
@@ -37,24 +34,22 @@ def hello_world():
 def formulario():
     return render_template('login.html')
 
-@app.route("/categoria/create", methods=["GET", "POST"])
-def nueva_categoria():
-    if request.method == "POST":
-        nombre = request.form['nombre']
-        estado = 1
-
-        datos = agregar_categoria(nombre, estado)
-
-        mensaje = "Categoria agregada correctamente."
-
-        return render_template('categoria/create.html', mensaje=mensaje)
-
-    return render_template('categoria/create.html')
-
 @app.route("/logout")
 def logout():
-    return "cerrar sesion"
+    session.pop('usuario')
+    return redirect(url_for("home"))
 
+@app.route("/pedidos")
+def pedidos():
+    if session:
+        return render_template("pedidos.html")
+    else:
+        return redirect(url_for("error"))
+    
+@app.route("/error")
+def error():
+    return render_template("erroracceso.html")
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
