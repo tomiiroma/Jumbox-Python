@@ -80,5 +80,8 @@ def cambiar_estado_categoria():
 
     else: return render_template('categoria/index.html')
 
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
