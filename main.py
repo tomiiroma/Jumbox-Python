@@ -9,7 +9,7 @@ app.secret_key = "secretkey"
 
 
 @app.route("/",  methods=["GET", "POST"])
-def hello_world():
+def home():
     db.iniciar_db()
     success = "Inicio de Sesion Exitoso"
     error="Email o contraseña incorrectas"
@@ -37,7 +37,7 @@ def formulario():
 @app.route("/logout")
 def logout():
     session.pop('usuario')
-    return "Cerrar sesion"
+    return redirect(url_for("home"))
 
 @app.route("/pedidos")
 def pedidos():
