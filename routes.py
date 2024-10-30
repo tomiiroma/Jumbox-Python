@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, session, flash
+from flask import Flask, render_template, request, session, flash, redirect, url_for
 from app.models.Sucursal import Sucursal
 from app.models.Categoria import Categoria
-from app.controller.categoria_controller import agregar_categoria,mostrar_categorias
+from app.controller.categoria_controller import agregar_categoria,mostrar_categorias,deshabilitar_categoria
 import app.conexion as db
 from app.controller.sucursal_controlador import get_sucursal 
 from app.controller.usuario_controlador import verificar_login
@@ -59,13 +59,26 @@ def logout():
 @app.route("/categoria/index")
 def index_categoria():
 
-
     categorias = mostrar_categorias()
-
-    print(categorias)
 
     return render_template('categoria/index.html', categorias=categorias)
 
+
+@app.route("/categoria/modificar", methods=["POST"])
+
+def cambiar_estado_categoria():
+    
+    if request.method == "POST":
+
+        id_categoria = request.form.get('id_categoria')
+
+        mensaje = deshabilitar_categoria(id_categoria)
+
+        flash(mensaje)
+
+        return redirect(url_for('index_categoria'))
+
+    else: return render_template('categoria/index.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

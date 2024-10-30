@@ -4,12 +4,27 @@
 
 
 {% block content %}
-    <h1>Categorias</h1>
+    <h1 class="titulo_centrado">Categorias</h1>
 
-    <!-- Aqui deberia ir un boton que conecta con la seccion de crear categoria.-->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="alert alert-success">
+            <ul>
+            {% for message in messages %}
+                <li class="centrado">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endwith %}
+
+
+    <a href="/categoria/create" class="btn btn-primary mb-3 mboton">Crear categoria</a>
     
-    <table>
-        <caption>Lista de categorias</caption>
+   <div class="tablapadding">
+
+       <table class="table table-striped table-bordered">
+        <caption class="text-center font-weight-bold">Lista de categorias</caption>
         <thead>
             <tr>
 
@@ -21,22 +36,37 @@
             </tr>
         </thead>
         <tbody>
-        {% if categorias %}
+            {% if categorias %}
             {% for categoria in categorias %}
             <tr>
-                <td>Id: {{categoria.id_categoria}} </td>
-                <td>Nombre:{{categoria.nombre}} </td>
-                <td>Estado:{{categoria.visible}} </td>
+                <td>Id: {{categoria.get_id_categoria()}} </td>
+                <td>Nombre:{{categoria.get_nombre_categoria()}} </td>
+                <td>{% if categoria.get_visible() == 1 %} Habilitada {% else %} Deshabilitada {% endif %} </td>
+                <td>
+                    {% if categoria.get_visible() == 1 %}
+                    <form method="POST" action="/categoria/modificar">
+                        <input type="hidden" name="id_categoria" value="{{ categoria.get_id_categoria() }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Deshabilitar</button>
+                    </form>
+                    {% else %}
+                    <form method="POST" action="/categoria/modificar">
+                            <input type="hidden" name="id_categoria" value="{{ categoria.get_id_categoria() }}">
+                            <button type="submit" class="btn btn-success btn-sm">Habilitar</button>
+                        </form>
+                    {% endif %}
+                </td>
+                
             </tr>
             {% endfor %}
-        
-        {% else %}
-                <td colspan="4">No hay categorias disponibles</td>
-        {% endif %}
+            
+            {% else %}
+            <td colspan="4">No hay categorias disponibles</td>
+            {% endif %}
         </tbody>
-
+        
         <tfoot colspan="4">Categorias Jumbox</tfoot>
-
+        
     </table>
+</div> 
 
     {% endblock %}
