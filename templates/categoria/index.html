@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de categorias</title>
-</head>
-<body>
+{% extends "layouts/layout.html" %}
 
+{% block title %}Categorias{% endblock %}
+
+
+{% block content %}
     <h1>Categorias</h1>
 
     <!-- Aqui deberia ir un boton que conecta con la seccion de crear categoria.-->
@@ -14,20 +11,32 @@
     <table>
         <caption>Lista de categorias</caption>
         <thead>
-            <th>Id categoria</th>
-            <th>Nombre</th>
-            <th>Estado </th>
-            <th>Acciones </th>
+            <tr>
+
+                <th>Id categoria</th>
+                <th>Nombre</th>
+                <th>Estado </th>
+                <th>Acciones </th>
+            
+            </tr>
         </thead>
         <tbody>
-
-            <!--Categorias-->
-
+        {% if categorias %}
+            {% for categoria in categorias %}
+            <tr>
+                <td>Id: {{categoria.id_categoria}} </td>
+                <td>Nombre:{{categoria.nombre}} </td>
+                <td>Estado:{{categoria.visible}} </td>
+            </tr>
+            {% endfor %}
+        
+        {% else %}
+                <td colspan="4">No hay categorias disponibles</td>
+        {% endif %}
         </tbody>
 
-        <tfoot>Categorias Jumbox</tfoot>
+        <tfoot colspan="4">Categorias Jumbox</tfoot>
 
     </table>
 
-</body>
-</html>
+    {% endblock %}
