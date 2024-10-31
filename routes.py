@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, flash, redirect, url_for
 from app.models.Sucursal import Sucursal
 from app.models.Categoria import Categoria
-from app.controller.categoria_controller import agregar_categoria,mostrar_categorias,deshabilitar_categoria,filtrar_categoria,modificar_categoria
+from app.controller.categoria_controller import agregar_categoria,mostrar_categorias,deshabilitar_categoria,filtrar_categoria,modificar_categoria,categorias_filtros_habilitadas,categorias_filtros_deshabilitadas
 import app.conexion as db
 from app.controller.sucursal_controlador import get_sucursal 
 from app.controller.usuario_controlador import verificar_login
@@ -47,7 +47,9 @@ def nueva_categoria():
 
         mensaje = "Categoria agregada correctamente."
 
-        return render_template('categoria/create.html', mensaje=mensaje)
+        flash(mensaje)
+
+        return redirect(url_for('index_categoria'))
 
     return render_template('categoria/create.html')
 
@@ -56,7 +58,7 @@ def logout():
     return "cerrar sesion"
 
 
-@app.route("/categoria/index")
+@app.route("/categoria/index", methods=["GET", "POST"])
 def index_categoria():
 
     categorias = mostrar_categorias()
@@ -100,13 +102,13 @@ def form_categoria_nombre(id_categoria):
             
             mensaje = resultado[1]
 
-            return redirect(url_for('index_categoria',mensaje = mensaje))
+            return render_template('categoria/index.html', mensaje=mensaje)
         
     else: # En caso de entrar por metodo GET.
 
             mensaje = "NO"
         
-            return redirect(url_for('index_categoria', mensaje=mensaje))
+            return render_template('categoria/index.html', mensaje=mensaje)
 
 @app.route("/categoria/update",methods=["GET","POST"])
 
@@ -128,13 +130,74 @@ def update_categoria():
 
             mensaje = modificar_categoria(id_categoria,nombre)
             flash(mensaje)
-            return redirect(url_for('index_categoria',mensaje = mensaje))
+
+            return redirect(url_for('index_categoria'))            
+
+            #return render_template('categoria/index.html', mensaje=mensaje)
 
         else:
 
             mensaje = "El nombre ingresado no es valido."
             return render_template('/categoria/edit.html', categoria=categoria, mensaje=mensaje)
 
+@app.route("/categoria/visible", methods=["GET","POST"])
+def categoria_visible():
+
+    if request.method == "POST":
+
+        resultado = categorias_filtros_habilitadas()
+
+        if resultado[0] is not None:
+
+            categorias = resultado[0]
+
+            mensaje = resultado[1]
+
+            flash(mensaje)
+
+            return render_template('categoria/index.html', categorias=categorias)
+
+        else:
+
+            mensaje = resultado[1]
+
+            flash(mensaje)
+
+            return render_template("categoria/index.html",mensaje=mensaje)
+    
+    else:
+
+            return redirect(url_for('index_categoria'))
+    
+@app.route("/categoria/novisible", methods=["GET","POST"])
+
+def categoria_novisible():
+
+    if request.method == "POST":
+
+        resultado = categorias_filtros_deshabilitadas()
+
+        if resultado[0] is not None:
+
+            categorias = resultado[0]
+
+            mensaje = resultado[1]
+
+            flash(mensaje)
+
+            return render_template('categoria/index.html', categorias=categorias)
+
+        else:
+
+            mensaje = resultado[1]
+
+            flash(mensaje)
+
+            return render_template('categoria/index.html', mensaje=mensaje)
+    
+    else:
+
+            return redirect(url_for('index_categoria'))
 
 
 if __name__ == "__main__":

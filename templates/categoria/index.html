@@ -21,8 +21,38 @@
 </div>
 
 <section class="container mt-5">
-    <a href="/categoria/create" class="btn btn-primary mb-3 mboton">Crear categoria</a>
+
+    <div class="grupo_botones">
+
+        
+        <a href="/categoria/create" class="btn btn-primary mb-3 mboton tmnbtn">Crear categoria</a>
+        
+        {% if '/categoria/index' in request.url %}
+
+    <form action="/categoria/visible" method="post">
+        
+        <button type="submit" class="btn btn-success btn-sm mboton tmnbtn">Filtrar categorias habilitadas</button>
+        
+    </form>
+
+    <form action="/categoria/novisible" method="post">
+        
+        <button type="submit" class="btn btn-danger btn-sm mboton tmnbtn">Filtrar categorias Deshabilitadas</button>
+        
+    </form>
+
+    {% else %}
     
+    <form action="/categoria/index" method="post">
+        
+        <button type="submit" class="btn btn-primary btn-sm mboton tmnbtn">Quitar el filtro</button>
+        
+    </form>
+    
+    {% endif %}
+    
+   </div>
+
    <div class="tablapadding">
 
        <table class="table table-striped table-bordered">
@@ -45,26 +75,30 @@
                 <td>{{categoria.get_nombre_categoria()}} </td>
                 <td>{% if categoria.get_visible() == 1 %} Habilitada {% else %} Deshabilitada {% endif %} </td>
                 <td>
-                    {% if categoria.get_visible() == 1 %}
-                    <form method="POST" action="/categoria/modificar">
-                        <input type="hidden" name="id_categoria" value="{{ categoria.get_id_categoria() }}">
-                        <button type="submit" class="btn btn-danger btn-sm">Deshabilitar</button>
-                    </form>
-                    {% else %}
-                    <form method="POST" action="/categoria/modificar">
+                    <div class="grupo_botones">
+
+                        <form method="POST" action="{{ url_for('form_categoria_nombre', id_categoria=categoria.get_id_categoria()) }}">
+    
+                            <input type="hidden" name="id_categoria" value="{{ categoria.get_id_categoria() }}">
+                            
+                            <button type="submit" class="btn btn-success btn-sm">Modificar</button>
+                            
+                        </form>
+
+                        {% if categoria.get_visible() == 1 %}
+                        <form method="POST" action="/categoria/modificar">
+                            <input type="hidden" name="id_categoria" value="{{ categoria.get_id_categoria() }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Deshabilitar</button>
+                        </form>
+                        {% else %}
+                        <form method="POST" action="/categoria/modificar">
                             <input type="hidden" name="id_categoria" value="{{ categoria.get_id_categoria() }}">
                             <button type="submit" class="btn btn-success btn-sm">Habilitar</button>
                         </form>
                     {% endif %}
-
-                    <form method="POST" action="{{ url_for('form_categoria_nombre', id_categoria=categoria.get_id_categoria()) }}">
-
-                        <input type="hidden" name="id_categoria" value="{{ categoria.get_id_categoria() }}">
-                        
-                        <button type="submit" class="btn btn-success btn-sm">Modificar</button>
-
-                    </form>
-
+                    
+                    
+                    </div>
                 </td>
                 
             </tr>

@@ -174,3 +174,80 @@ def filtrar_categoria(id_categoria):
 
         cursor.close()
         conn.close()
+
+
+def categorias_filtros_habilitadas():
+
+    conn = obtener_conexion()
+
+    cursor = conn.cursor()
+
+    lista_categoria = []
+
+    try:
+
+        cursor.execute("SELECT * FROM categoria where visible=1")
+
+        categorias = cursor.fetchall()
+
+        if len(categorias) > 0:
+
+            for categoria in categorias:
+
+                obj_categoria = Categoria(id_categoria=categoria[0],nombre=categoria[1],visible=categoria[2])
+
+                lista_categoria.append(obj_categoria)
+
+            return lista_categoria, "Se han filtrado las categorias habilitadas."
+
+        else:
+
+            return None,"No se hay categorias habilitadas."
+
+    except Exception as error:
+
+            return None,"Ocurrio un error" + str(error)
+    
+    finally:
+
+        cursor.close()
+        conn.close()
+
+
+
+def categorias_filtros_deshabilitadas():
+
+    conn = obtener_conexion()
+
+    cursor = conn.cursor()
+
+    lista_categoria = []
+
+    try:
+
+        cursor.execute("SELECT * FROM categoria where visible=0")
+
+        categorias = cursor.fetchall()
+
+        if len(categorias) > 0:
+
+            for categoria in categorias:
+
+                obj_categoria = Categoria(id_categoria=categoria[0],nombre=categoria[1],visible=categoria[2])
+
+                lista_categoria.append(obj_categoria)
+
+            return lista_categoria, "Se han filtrado las categorias dehabilitadas."
+
+        else:
+
+            return None,"No se hay categorias deshabilitadas."
+
+    except Exception as error:
+
+            return None,"Ocurrio un error" + str(error)
+    
+    finally:
+
+        cursor.close()
+        conn.close()
