@@ -2,7 +2,7 @@ from app.conexion import obtener_conexion
 from ..models.Producto import Producto
 
 
-def agregar_producto(nombre, precio, marca, estado, descripcion, categoria_id):
+def agregar_producto(nombre, precio, marca, estado, descripcion, categoria_id,cantidad):
     conn = obtener_conexion()
     cursor = conn.cursor()
 
@@ -15,8 +15,8 @@ def agregar_producto(nombre, precio, marca, estado, descripcion, categoria_id):
             return
         else:
             cursor.execute(
-                "INSERT INTO producto (nombre, precio, marca, estado, descripcion, fk_categoria) VALUES (?, ?, ?, ?, ?, ?)",
-                (nombre, precio, marca, estado, descripcion, categoria_id)
+                "INSERT INTO producto (nombre, precio, marca, estado, descripcion, fk_categoria, cantidad) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                (nombre, precio, marca, estado, descripcion, categoria_id, cantidad)
             )
             conn.commit()
             print("Producto agregado correctamente.")
@@ -44,11 +44,12 @@ def mostrar_productos():
             producto = Producto(
                 idProducto=columna[0],
                 nombre=columna[2],
-                precio=columna[3],
-                marca=columna[4],
-                estado=bool(columna[5]),
-                descripcion=columna[6],
-                categoria=columna[1]  
+                precio=columna[4],
+                marca=columna[3],
+                estado=columna[6],
+                descripcion=columna[5],
+                categoria=columna[1],  
+                cantidad=columna[7]
             )
             lista_productos.append(producto)
 
@@ -63,7 +64,7 @@ def mostrar_productos():
 
     
 
-def actualizar_producto(id_producto, nombre=None, precio=None, marca=None, estado=None, descripcion=None, categoria_id=None):
+def actualizar_producto(id_producto, nombre=None, precio=None, marca=None, estado=None, descripcion=None, categoria_id=None,cantidad=None):
     conn = obtener_conexion()
     cursor = conn.cursor()
 
@@ -83,13 +84,17 @@ def actualizar_producto(id_producto, nombre=None, precio=None, marca=None, estad
             valores.append(marca)
         if estado is not None:
             campos.append("estado = ?")
-            valores.append(int(estado))  # Convertir el estado a entero
+            valores.append(estado)  
         if descripcion:
             campos.append("descripcion = ?")
             valores.append(descripcion)
         if categoria_id:
             campos.append("fk_categoria = ?")
-            valores.append(categoria_id)
+            valores.append(categoria_id)           
+        if cantidad is not None:
+            campos.append("cantidad = ?")
+            valores.append(cantidad)             
+
 
         if campos:
             valores.append(id_producto)
@@ -112,17 +117,17 @@ def deshabilitar_producto(id_producto):
     cursor = conn.cursor()
 
     try:
-        cursor.execute('SELECT estado FROM producto WHERE id_producto = ?', (id_producto,))
+        cursor.execute('SELECT estado FROM producto WHERE id_producto = ?', (id_producto))
         fila = cursor.fetchone()
 
         if fila:
             # Cambiamos el estado
             if fila[0] == 1:  # Si el estado es 1 (habilitado)
-                cursor.execute("UPDATE producto SET estado = 0 WHERE id_producto = ?", (id_producto,))
+                cursor.execute("UPDATE producto SET estado = 0 WHERE id_producto = ?", (id_producto))
                 conn.commit()
                 return "Producto deshabilitado."
             else:  # Si el estado es 0 (deshabilitado)
-                cursor.execute("UPDATE producto SET estado = 1 WHERE id_producto = ?", (id_producto,))
+                cursor.execute("UPDATE producto SET estado = 1 WHERE id_producto = ?", (id_producto))
                 conn.commit()
                 return "Producto habilitado."
         else:

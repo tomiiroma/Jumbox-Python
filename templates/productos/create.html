@@ -40,6 +40,12 @@
         </div>
 
         <div class="mb-3">
+            <label for="cantidad" class="form-label">Cantidad:</label>
+            <input type="number" name="cantidad" id="cantidad" class="form-control" step="0.01" required>
+        </div>
+
+
+        <div class="mb-3">
             <label for="categoria" class="form-label">Categoría:</label>
             <select name="categoria" id="categoria" class="form-select" required>
                 {% for categoria in categorias %}

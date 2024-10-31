@@ -57,12 +57,6 @@ def iniciar_db():
         FOREIGN KEY (fk_categoria) REFERENCES categoria (id_categoria)
     )''')
 
-    # Copiar datos de la tabla antigua a la nueva
-    cursor.execute('''
-        INSERT INTO producto (id_producto, fk_categoria, nombre, marca, precio, descripcion, estado)
-        SELECT id_producto, fk_categoria, nombre, marca, precio, descripcion, estado FROM producto
-    ''')
-
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS inventario (
         id_inventario INTEGER PRIMARY KEY AUTOINCREMENT,

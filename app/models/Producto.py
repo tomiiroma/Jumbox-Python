@@ -1,7 +1,7 @@
 from typing import Optional
 
 class Producto:
-    def __init__(self, idProducto: int, nombre: str, precio: float, marca: str, estado: int, descripcion: str, categoria: str):
+    def __init__(self, idProducto: int, nombre: str, precio: float, marca: str, estado: int, descripcion: str, categoria: str, cantidad: int):
         self._idProducto = idProducto
         self._nombre = nombre
         self._precio = precio
@@ -9,6 +9,7 @@ class Producto:
         self._estado = estado  # Cambiado a int (0 o 1)
         self._descripcion = descripcion
         self._categoria = categoria
+        self.cantidad = cantidad
 
     @property
     def idProducto(self) -> int:

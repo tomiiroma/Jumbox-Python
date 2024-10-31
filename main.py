@@ -119,8 +119,9 @@ def nuevo_producto():
         estado = int(request.form['estado'])
         descripcion = request.form.get('descripcion', "")
         categoria_id = request.form['categoria']  
+        cantidad = request.form['cantidad']
 
-        agregar_producto(nombre, precio, marca, estado, descripcion, categoria_id)
+        agregar_producto(nombre, precio, marca, estado, descripcion, categoria_id, cantidad)
 
         mensaje = "Producto agregado correctamente."
 
@@ -149,6 +150,7 @@ def cambiar_estado_productos():
 
         mensaje = deshabilitar_producto(id_producto)
         flash(mensaje)
+
         return redirect(url_for('index_producto'))
 
 
