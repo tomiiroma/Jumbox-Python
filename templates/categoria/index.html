@@ -39,8 +39,8 @@
             {% if categorias %}
             {% for categoria in categorias %}
             <tr>
-                <td>Id: {{categoria.get_id_categoria()}} </td>
-                <td>Nombre:{{categoria.get_nombre_categoria()}} </td>
+                <td>{{categoria.get_id_categoria()}} </td>
+                <td>{{categoria.get_nombre_categoria()}} </td>
                 <td>{% if categoria.get_visible() == 1 %} Habilitada {% else %} Deshabilitada {% endif %} </td>
                 <td>
                     {% if categoria.get_visible() == 1 %}

@@ -33,7 +33,26 @@ def hello_world():
     return render_template("index.html", sucursales=sucursales)
 
     
+@app.route("/pedidos")
+def pedidos():
+    #if session:
+        return render_template("pedidos.html")
+   # else:
+      #  return redirect(url_for("error"))
     
+
+
+
+
+
+@app.route("/error")
+def error():
+    return render_template("erroracceso.html")
+    
+    
+
+
+
 @app.route("/login")
 def formulario():
     return render_template('login.html')
@@ -61,10 +80,15 @@ def logout():
 
 @app.route("/categoria/index")
 def index_categoria():
+      # if session:
+            categorias = mostrar_categorias()
 
-    categorias = mostrar_categorias()
+            return render_template('categoria/index.html', categorias=categorias)
+     #   else:
+         #       return redirect(url_for("error"))
 
-    return render_template('categoria/index.html', categorias=categorias)
+
+
 
 
 @app.route("/categoria/modificar", methods=["POST"])
