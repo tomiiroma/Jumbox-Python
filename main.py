@@ -37,6 +37,8 @@ def hello_world():
 def formulario():
     return render_template('login.html')
 
+
+
 @app.route("/categoria/create", methods=["GET", "POST"])
 def nueva_categoria():
     if request.method == "POST":
