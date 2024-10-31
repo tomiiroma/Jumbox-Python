@@ -5,6 +5,7 @@ from app.controller.categoria_controller import agregar_categoria,mostrar_catego
 import app.conexion as db
 from app.controller.sucursal_controlador import get_sucursal 
 from app.controller.usuario_controlador import verificar_login
+from app.controller.producto_controller import agregar_producto, mostrar_productos  # Importa funciones necesarias
 
 
 app = Flask(__name__)
@@ -81,6 +82,13 @@ def cambiar_estado_categoria():
         return redirect(url_for('index_categoria'))
 
     else: return render_template('categoria/index.html')
+
+
+
+
+
+
+
 
 
 

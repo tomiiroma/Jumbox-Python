@@ -66,6 +66,7 @@ class Producto:
     def categoria(self, categoria: str):
         self._categoria = categoria
 
+
     def to_string(self) -> str:
         estado_mensaje = "Disponible" if self._estado else "No disponible"
         return (f"\nInformación del Producto\n"
