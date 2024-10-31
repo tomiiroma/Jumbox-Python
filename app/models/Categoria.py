@@ -1,4 +1,4 @@
-
+import re
 
 class Categoria:
 
@@ -34,6 +34,22 @@ class Categoria:
         else:
 
             self.visible = True
+
+    def validar_nombre(self,nombre):
+
+        patron = r'^[A-Za-z\s]+$'
+
+        if  re.match(patron,nombre):
+
+            for letra in nombre:
+            
+                if (letra.isnumeric()):
+
+                    return False
+        
+            return True
+    
+        else: return False
 
 
     

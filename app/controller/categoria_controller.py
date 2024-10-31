@@ -123,6 +123,10 @@ def modificar_categoria(id_categoria,nuevo_nombre):
 
             cursor.execute("UPDATE categoria SET nombre = ? where id_categoria = ?",(nuevo_nombre,id_categoria,))
 
+            conn.commit()
+
+            return "Categoria modificada."
+
         else:
 
             return "Categoria no encontrada"

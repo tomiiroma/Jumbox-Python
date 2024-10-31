@@ -1,5 +1,5 @@
 from typing import Any
-import re
+
 
 class Producto:
 
@@ -65,18 +65,3 @@ class Producto:
         return toString
 
 
-    def validar_nombre(nombre):
-
-        patron = r'^[A-Za-z\s]+$'
-
-        if  re.match(patron,nombre):
-
-            for letra in nombre:
-            
-                if (letra.isnumeric()):
-
-                    return False
-        
-            return True
-    
-        else: return False

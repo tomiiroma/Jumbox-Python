@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, flash, redirect, url_for
 from app.models.Sucursal import Sucursal
 from app.models.Categoria import Categoria
-from app.controller.categoria_controller import agregar_categoria,mostrar_categorias,deshabilitar_categoria,filtrar_categoria
+from app.controller.categoria_controller import agregar_categoria,mostrar_categorias,deshabilitar_categoria,filtrar_categoria,modificar_categoria
 import app.conexion as db
 from app.controller.sucursal_controlador import get_sucursal 
 from app.controller.usuario_controlador import verificar_login
@@ -108,7 +108,32 @@ def form_categoria_nombre(id_categoria):
         
             return redirect(url_for('index_categoria', mensaje=mensaje))
 
-#@app.route("categoria/update",methods=["POST"])
+@app.route("/categoria/update",methods=["GET","POST"])
+
+def update_categoria():
+
+    if request.method == "POST":
+
+        id_categoria = request.form.get('id_categoria')
+
+        nombre = request.form.get('nombre')
+
+        categoria_instancia = filtrar_categoria(id_categoria)
+
+        categoria = categoria_instancia[0]
+
+        flag = categoria.validar_nombre(nombre)
+
+        if flag:
+
+            mensaje = modificar_categoria(id_categoria,nombre)
+            flash(mensaje)
+            return redirect(url_for('index_categoria',mensaje = mensaje))
+
+        else:
+
+            mensaje = "El nombre ingresado no es valido."
+            return render_template('/categoria/edit.html', categoria=categoria, mensaje=mensaje)
 
 
 
