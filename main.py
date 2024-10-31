@@ -5,7 +5,7 @@ from app.controller.categoria_controller import agregar_categoria,mostrar_catego
 import app.conexion as db
 from app.controller.sucursal_controlador import get_sucursal 
 from app.controller.usuario_controlador import verificar_login
-from app.controller.producto_controller import agregar_producto, mostrar_productos  # Importa funciones necesarias
+from app.controller.producto_controller import agregar_producto, deshabilitar_producto, mostrar_productos  # Importa funciones necesarias
 
 
 app = Flask(__name__)
@@ -86,7 +86,46 @@ def cambiar_estado_categoria():
 
 
 
+@app.route("/productos/create", methods=["GET", "POST"])
+def nuevo_producto():
+    if request.method == "POST":
+        nombre = request.form['nombre']
+        precio = request.form['precio']
+        marca = request.form['marca']
+        estado = int(request.form['estado'])
+        descripcion = request.form.get('descripcion', "")
+        categoria_id = request.form['categoria']  
 
+        agregar_producto(nombre, precio, marca, estado, descripcion, categoria_id)
+
+        mensaje = "Producto agregado correctamente."
+
+        return render_template('productos/create.html', mensaje=mensaje)
+
+    categorias = mostrar_categorias()
+    return render_template('productos/create.html', categorias=categorias)
+
+
+@app.route("/productos/index")
+def index_producto():
+    productos = mostrar_productos()  
+    print(f"Productos recuperados: {productos}")  # Para verificar qué datos estás obteniendo
+    return render_template('productos/index.html', productos=productos)
+
+
+
+@app.route("/productos/modificar", methods=["POST"])
+def cambiar_estado_productos():
+    if request.method == "POST":
+        id_producto = request.form.get('id_producto')
+
+        if not id_producto:
+            flash("No se recibió el ID del producto.")
+            return redirect(url_for('index_producto'))
+
+        mensaje = deshabilitar_producto(id_producto)
+        flash(mensaje)
+        return redirect(url_for('index_producto'))
 
 
 

@@ -112,23 +112,31 @@ def deshabilitar_producto(id_producto):
     cursor = conn.cursor()
 
     try:
-        cursor.execute("SELECT estado FROM producto WHERE id_producto = ?", (id_producto,))
+        cursor.execute('SELECT estado FROM producto WHERE id_producto = ?', (id_producto,))
         fila = cursor.fetchone()
 
-        if fila is not None:
-            nuevo_estado = 0 if fila[0] == 1 else 1
-            cursor.execute("UPDATE producto SET estado = ? WHERE id_producto = ?", (nuevo_estado, id_producto))
-            conn.commit()
-            print("Producto deshabilitado." if nuevo_estado == 0 else "Producto habilitado.")
+        if fila:
+            # Cambiamos el estado
+            if fila[0] == 1:  # Si el estado es 1 (habilitado)
+                cursor.execute("UPDATE producto SET estado = 0 WHERE id_producto = ?", (id_producto,))
+                conn.commit()
+                return "Producto deshabilitado."
+            else:  # Si el estado es 0 (deshabilitado)
+                cursor.execute("UPDATE producto SET estado = 1 WHERE id_producto = ?", (id_producto,))
+                conn.commit()
+                return "Producto habilitado."
         else:
-            print("Producto no encontrado.")
+            return "Error: producto no encontrado."
     
     except Exception as e:
-        print(f"Ocurrió un error: {e}")
+        print(f"Ocurrió un error: {e}")  # Asegúrate de imprimir el error para depuración
+        return "Ocurrió un error al cambiar el estado del producto."
     
     finally:
         cursor.close()
         conn.close()
+
+
 
 
 

@@ -1,13 +1,12 @@
 from typing import Optional
 
 class Producto:
-
-    def __init__(self, idProducto: int, nombre: str, precio: float, marca: str, estado: bool, descripcion: str, categoria: str):
+    def __init__(self, idProducto: int, nombre: str, precio: float, marca: str, estado: int, descripcion: str, categoria: str):
         self._idProducto = idProducto
         self._nombre = nombre
         self._precio = precio
         self._marca = marca
-        self._estado = estado
+        self._estado = estado  # Cambiado a int (0 o 1)
         self._descripcion = descripcion
         self._categoria = categoria
 
@@ -40,15 +39,15 @@ class Producto:
         self._marca = marca
 
     @property
-    def estado(self) -> bool:
+    def estado(self) -> int:  # Cambiado a int
         return self._estado
 
     @estado.setter
-    def estado(self, estado: bool):
-        if isinstance(estado, bool):
+    def estado(self, estado: int):  # Cambiado a int
+        if estado in (0, 1):  # Aceptar solo 0 o 1
             self._estado = estado
         else:
-            print("El estado solo acepta valores booleanos.")
+            print("El estado solo acepta 0 (deshabilitado) o 1 (habilitado).")
 
     @property
     def descripcion(self) -> str:
@@ -66,9 +65,8 @@ class Producto:
     def categoria(self, categoria: str):
         self._categoria = categoria
 
-
     def to_string(self) -> str:
-        estado_mensaje = "Disponible" if self._estado else "No disponible"
+        estado_mensaje = "Disponible" if self._estado == 1 else "No disponible"  # Usar comparación con int
         return (f"\nInformación del Producto\n"
                 f"Producto: {self._nombre}\n"
                 f"Categoría: {self._categoria}\n"
