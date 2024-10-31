@@ -1,0 +1,35 @@
+{%  extends "layouts/layout.html"  %}
+
+
+{% block title %}Modificar categoria{% endblock %}
+
+
+{% block content %}
+
+<section class="container mt-5">
+
+
+<h1 class="centrado">Modificar categoria</h1>
+
+<form method="POST" class="mt-4">
+
+<div class="mb-3">
+
+    <label for="nombre" class="form-label">Nombre del producto</label>
+    
+    <input type="text" name="nombre" id="nombre" value="{{ categoria.get_nombre_categoria()}}" class="form-control" required>
+    
+</div>
+    <div class="text-center">
+        
+        <button type="submit" class="btn btn-primary">Modificar</button>
+
+    </div>
+
+</form>
+
+<!--<a href="btn btn-danger btn-s">Cancelar</a>-->
+
+</section>
+
+{% endblock %}

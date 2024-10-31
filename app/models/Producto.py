@@ -1,4 +1,5 @@
 from typing import Any
+import re
 
 class Producto:
 
@@ -62,3 +63,20 @@ class Producto:
         toString = "\n"+"Información del Producto"+"\nProducto: "+self.nombre+"\nCategoria: "+self.categoria +"\nMarca: "+self.marca+"\nPrecio: "+str(self.precio)+"\nDescripcion: "+self.descripcion+"\nEstado: "+estado_mensaje
 
         return toString
+
+
+    def validar_nombre(nombre):
+
+        patron = r'^[A-Za-z\s]+$'
+
+        if  re.match(patron,nombre):
+
+            for letra in nombre:
+            
+                if (letra.isnumeric()):
+
+                    return False
+        
+            return True
+    
+        else: return False

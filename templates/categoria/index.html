@@ -2,23 +2,25 @@
 
 {% block title %}Categorias{% endblock %}
 
-
 {% block content %}
-    <h1 class="titulo_centrado">Categorias</h1>
 
+<div class="container mt-5">
+    <h1 class="titulo_centrado">Categorias</h1>
+    
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-        <div class="alert alert-success">
-            <ul>
+    <div class="alert alert-success">
+        <ul>
             {% for message in messages %}
-                <li class="centrado">{{ message }}</li>
+            <li class="centrado">{{ message }}</li>
             {% endfor %}
-            </ul>
-        </div>
+        </ul>
+    </div>
     {% endif %}
-{% endwith %}
+    {% endwith %}
+</div>
 
-
+<section class="container mt-5">
     <a href="/categoria/create" class="btn btn-primary mb-3 mboton">Crear categoria</a>
     
    <div class="tablapadding">
@@ -39,8 +41,8 @@
             {% if categorias %}
             {% for categoria in categorias %}
             <tr>
-                <td>Id: {{categoria.get_id_categoria()}} </td>
-                <td>Nombre:{{categoria.get_nombre_categoria()}} </td>
+                <td>{{categoria.get_id_categoria()}} </td>
+                <td>{{categoria.get_nombre_categoria()}} </td>
                 <td>{% if categoria.get_visible() == 1 %} Habilitada {% else %} Deshabilitada {% endif %} </td>
                 <td>
                     {% if categoria.get_visible() == 1 %}
@@ -54,6 +56,15 @@
                             <button type="submit" class="btn btn-success btn-sm">Habilitar</button>
                         </form>
                     {% endif %}
+
+                    <form method="POST" action="{{ url_for('form_categoria_nombre', id_categoria=categoria.get_id_categoria()) }}">
+
+                        <input type="hidden" name="id_categoria" value="{{ categoria.get_id_categoria() }}">
+                        
+                        <button type="submit" class="btn btn-success btn-sm">Modificar</button>
+
+                    </form>
+
                 </td>
                 
             </tr>
@@ -68,5 +79,5 @@
         
     </table>
 </div> 
-
+</section>
     {% endblock %}
