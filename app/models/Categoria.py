@@ -3,23 +3,23 @@ import re
 class Categoria:
 
     def __init__(self,id_categoria,nombre,visible):
-        self.id_categoria = id_categoria
-        self.nombre = nombre
-        self.visible = visible
+        self.__id_categoria = id_categoria
+        self.__nombre = nombre
+        self.__visible = visible
 
     def get_nombre_categoria(self):
-        return self.nombre
+        return self.__nombre
     
     def get_id_categoria(self):
-        return self.id_categoria
+        return self.__id_categoria
     
     def get_visible(self):
-        return self.visible
+        return self.__visible
     
     def set_nombre_categoria(self,nombre):
         if len(nombre)>0:
 
-            self.nombre = nombre
+            self.__nombre = nombre
 
         else:
 
@@ -28,12 +28,12 @@ class Categoria:
     
     def set_visible(self,estado):
 
-        if self.visible == True:
-            self.visible = False
+        if self.__visible == True:
+            self.__visible = False
 
         else:
 
-            self.visible = True
+            self.__visible = True
 
 
     @staticmethod

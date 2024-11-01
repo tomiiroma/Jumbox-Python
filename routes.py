@@ -5,7 +5,7 @@ from app.controller.categoria_controller import agregar_categoria,mostrar_catego
 import app.conexion as db
 from app.controller.sucursal_controlador import get_sucursal 
 from app.controller.usuario_controlador import verificar_login
-
+from app.controller.provincia_controller import mostrar_provincias
 
 app = Flask(__name__)
 app.secret_key = "secretkey"
@@ -60,7 +60,7 @@ def nueva_categoria():
             
             mensaje = "El nombre no es válido."
 
-            return render_template('categoria/create.html')
+            return render_template('categoria/create.html', mensaje=mensaje)
 
     return render_template('categoria/create.html')
 
@@ -209,6 +209,21 @@ def categoria_novisible():
     else:
 
             return redirect(url_for('index_categoria'))
+
+
+@app.route("/provincia/index", methods=["GET","POST"])
+
+def index_provincias():
+    
+   
+    resultado = mostrar_provincias()
+
+    provincias = resultado[0]
+
+    mensaje = resultado[1]
+
+    return render_template("/provincia/index.html", provincias = provincias, mensaje=mensaje)
+
 
 
 if __name__ == "__main__":
