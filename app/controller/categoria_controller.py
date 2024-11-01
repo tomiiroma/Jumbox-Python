@@ -202,7 +202,7 @@ def categorias_filtros_habilitadas():
 
         else:
 
-            return None,"No se hay categorias habilitadas."
+            return None,"No hay categorias habilitadas."
 
     except Exception as error:
 
@@ -241,7 +241,7 @@ def categorias_filtros_deshabilitadas():
 
         else:
 
-            return None,"No se hay categorias deshabilitadas."
+            return None,"No hay categorias deshabilitadas."
 
     except Exception as error:
 

@@ -41,14 +41,13 @@ class Categoria:
 
         if  re.match(patron,nombre):
 
-            for letra in nombre:
-            
-                if (letra.isnumeric()):
+          verificar_espacios = nombre.replace(" ","")
 
-                    return False
+          if verificar_espacios:
+                
         
-            return True
-    
+              return True
+
         else: return False
 
 
