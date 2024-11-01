@@ -35,7 +35,9 @@ class Categoria:
 
             self.visible = True
 
-    def validar_nombre(self,nombre):
+
+    @staticmethod
+    def validar_nombre(nombre):
 
         patron = r'^[A-Za-z\s]+$'
 

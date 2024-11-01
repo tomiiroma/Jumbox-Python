@@ -9,44 +9,37 @@ class test_nombre_categoria(unittest.TestCase):
 
     def test_nombre_valido(self):
 
-        categoria_test = Categoria(100,"Electrodonesticos",True) #Categoria a la cual se le quiere modificar el nombre
-
         nombre = "Electrodomesticos" # Nuevo nombre
 
-        validacion = categoria_test.validar_nombre(nombre)  # A la variable validacion se le pasa el return del metodo categoria a traves de la instancia categoria_test
+        validacion = Categoria.validar_nombre(nombre)  # A la variable validacion se le pasa el return del metodo categoria a traves del metodo estatico validar_nombre()
 
         self.assertTrue(validacion) # Se comprueba el resultado. En este caso deberia retornar verdadero
 
     
     def test_nombre_numerico(self):
 
-        categoria_test = Categoria(100,"Electrodomesticos",True)
 
         nombre = "1234" # Nombre inválido no permite números.
 
-        validacion = categoria_test.validar_nombre(nombre) 
+        validacion = Categoria.validar_nombre(nombre) 
 
         self.assertFalse(validacion)
 
 
     def test_nombre_caracteres_especiales(self):
 
-        categoria_test = Categoria(100,"Electrodomesticos",True)
-
         nombre = "Electrodomesticos'@" # Nombre inválido con caracteres especiales
 
-        validacion = categoria_test.validar_nombre(nombre)
+        validacion = Categoria.validar_nombre(nombre)
 
         self.assertFalse(validacion)
 
     
     def test_nombre_solo_espacios(self):
 
-        categoria_test = Categoria(100,"Electrodomesticos",True)
-
         nombre = "      " # Nombre inválido con espacios en blanco
 
-        validacion = categoria_test.validar_nombre(nombre)
+        validacion = Categoria.validar_nombre(nombre)
 
         self.assertFalse(validacion)
 

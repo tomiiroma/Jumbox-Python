@@ -43,13 +43,24 @@ def nueva_categoria():
         nombre = request.form['nombre']
         estado = 1
 
-        agregar_categoria(nombre, estado)
 
-        mensaje = "Categoria agregada correctamente."
+        flag = Categoria.validar_nombre(nombre)
 
-        flash(mensaje)
+        if flag:
 
-        return redirect(url_for('index_categoria'))
+            agregar_categoria(nombre, estado)
+
+            mensaje = "Categoria agregada correctamente."
+
+            flash(mensaje)
+
+            return redirect(url_for('index_categoria'))
+
+        else: 
+            
+            mensaje = "El nombre no es válido."
+
+            return render_template('categoria/create.html')
 
     return render_template('categoria/create.html')
 
@@ -124,7 +135,7 @@ def update_categoria():
 
         categoria = categoria_instancia[0]
 
-        flag = categoria.validar_nombre(nombre)
+        flag = Categoria.validar_nombre(nombre)
 
         if flag:
 
