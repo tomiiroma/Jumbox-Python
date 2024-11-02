@@ -1,67 +1,77 @@
-from typing import Any
-
+from typing import Optional
 
 class Producto:
+    def __init__(self, idProducto: int, nombre: str, precio: float, marca: str, estado: int, descripcion: str, categoria: str, cantidad: int):
+        self._idProducto = idProducto
+        self._nombre = nombre
+        self._precio = precio
+        self._marca = marca
+        self._estado = estado  # Cambiado a int (0 o 1)
+        self._descripcion = descripcion
+        self._categoria = categoria
+        self.cantidad = cantidad
 
-    def __init__(self, idProducto,nombre, precio, marca, estado, descripcion, categoria):
-        self.idProducto = idProducto
-        self.nombre = nombre
-        self.precio = precio
-        self.marca = marca
-        self.estado = estado
-        self.descripcion = descripcion
-        self.categoria = categoria
+    @property
+    def idProducto(self) -> int:
+        return self._idProducto
 
+    @property
+    def nombre(self) -> str:
+        return self._nombre
 
-    def idProducto(self):
-        return self.idProducto
+    @nombre.setter
+    def nombre(self, nombre: str):
+        self._nombre = nombre
 
-    def get_nombre(self):
-        return self.nombre
-    
-    def get_precio(self):
-        return self.precio
-    
-    def get_estado(self):
-        return self.estado
-    
-    def get_marca(self):
-        return self.marca
-    
-    def get_categoria(self):
-        return self.categoria
+    @property
+    def precio(self) -> float:
+        return self._precio
 
-    def set_categoria(self,categoria):
-        self.categoria = categoria
-        
-    
-    def set_nombre(self,nombre):
-        self.nombre = nombre
-        
-    def set_precio(self,precio):
-        self.precio = precio
+    @precio.setter
+    def precio(self, precio: float):
+        self._precio = precio
 
-    def set_marca(self,marca):
-        self.marca = marca
+    @property
+    def marca(self) -> str:
+        return self._marca
 
-    def set_descripcion(self,descripcion):
-        self.descripcion = descripcion
+    @marca.setter
+    def marca(self, marca: str):
+        self._marca = marca
 
-    def set_estado(self,estado):
-        if estado != True and estado != False:
-            print("El estado solo acepta valores booleanos")
+    @property
+    def estado(self) -> int:  # Cambiado a int
+        return self._estado
+
+    @estado.setter
+    def estado(self, estado: int):  # Cambiado a int
+        if estado in (0, 1):  # Aceptar solo 0 o 1
+            self._estado = estado
         else:
-            self.estado = estado
-    
-    def to_string(self):
-        
-        if self.estado == True:
-            estado_mensaje = "Disponible"
-        else:
-            estado_mensaje = "No disponible"
+            print("El estado solo acepta 0 (deshabilitado) o 1 (habilitado).")
 
-        toString = "\n"+"Información del Producto"+"\nProducto: "+self.nombre+"\nCategoria: "+self.categoria +"\nMarca: "+self.marca+"\nPrecio: "+str(self.precio)+"\nDescripcion: "+self.descripcion+"\nEstado: "+estado_mensaje
+    @property
+    def descripcion(self) -> str:
+        return self._descripcion
 
-        return toString
+    @descripcion.setter
+    def descripcion(self, descripcion: str):
+        self._descripcion = descripcion
 
+    @property
+    def categoria(self) -> str:
+        return self._categoria
 
+    @categoria.setter
+    def categoria(self, categoria: str):
+        self._categoria = categoria
+
+    def to_string(self) -> str:
+        estado_mensaje = "Disponible" if self._estado == 1 else "No disponible"  # Usar comparación con int
+        return (f"\nInformación del Producto\n"
+                f"Producto: {self._nombre}\n"
+                f"Categoría: {self._categoria}\n"
+                f"Marca: {self._marca}\n"
+                f"Precio: ${self._precio}\n"
+                f"Descripción: {self._descripcion}\n"
+                f"Estado: {estado_mensaje}")

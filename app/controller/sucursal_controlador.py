@@ -1,7 +1,5 @@
 from app.conexion import obtener_conexion
 
-
-
 def get_sucursal():
     conn = obtener_conexion()
     cursor = conn.cursor()
