@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, flash, redirect, url_for
 from app.models.Sucursal import Sucursal
 from app.models.Categoria import Categoria
-from app.controller.categoria_controller import agregar_categoria,mostrar_categorias,deshabilitar_categoria,filtrar_categoria,modificar_categoria,categorias_filtros_habilitadas,categorias_filtros_deshabilitadas
+from app.controller.categoria_controller import agregar_categoria,mostrar_categorias,deshabilitar_categoria,filtrar_categoria,modificar_categoria,categorias_filtros_habilitadas
 import app.conexion as db
 from app.controller.sucursal_controlador import get_sucursal 
 from app.controller.usuario_controlador import verificar_login, get_sucursal_por_usuario
@@ -109,11 +109,16 @@ def logout():
 
 @app.route("/categoria/index", methods=["GET", "POST"])
 def index_categoria():
+    if session:
+    
 
-    categorias = mostrar_categorias()
+        categorias = mostrar_categorias()
 
-    return render_template('categoria/index.html', categorias=categorias)
+        return render_template('categoria/index.html', categorias=categorias)
 
+    else: 
+
+        return redirect(url_for("error"))
 
 
 
@@ -122,19 +127,21 @@ def index_categoria():
 
 def cambiar_estado_categoria():
     
-    if request.method == "POST":
+    if session:
 
-        id_categoria = request.form.get('id_categoria')
+        if request.method == "POST":
 
-        mensaje = deshabilitar_categoria(id_categoria)
+            id_categoria = request.form.get('id_categoria')
 
-        flash(mensaje)
+            mensaje = deshabilitar_categoria(id_categoria)
 
-        return redirect(url_for('index_categoria'))
+            flash(mensaje)
 
-    else: return render_template('categoria/index.html')
+            return redirect(url_for('index_categoria'))
 
+        else: return render_template('categoria/index.html')
 
+    else: return redirect(url_for("error"))
 
 
 @app.route("/productos/create", methods=["GET", "POST"])
@@ -186,120 +193,134 @@ def cambiar_estado_productos():
 
 def form_categoria_nombre(id_categoria):
 
-    if request.method == "POST":
+    if session:
 
-        resultado = filtrar_categoria(id_categoria)
+        if request.method == "POST":
+
+            resultado = filtrar_categoria(id_categoria)
         
-        if (resultado[0] is not None):
+            if (resultado[0] is not None):
             
-            categoria = resultado[0]
+                categoria = resultado[0]
 
-            return render_template('categoria/edit.html/', categoria = categoria)
+                return render_template('categoria/edit.html/', categoria = categoria)
 
-        else:
+            else:
             
-            mensaje = resultado[1]
+                mensaje = resultado[1]
 
-            return render_template('categoria/index.html', mensaje=mensaje)
+                return render_template('categoria/index.html', mensaje=mensaje)
         
-    else: # En caso de entrar por metodo GET.
+        else: # En caso de entrar por metodo GET.
 
             mensaje = "NO"
         
             return render_template('categoria/index.html', mensaje=mensaje)
 
+    else: return redirect(url_for("error"))
 
 @app.route("/categoria/update",methods=["GET","POST"])
 
 def update_categoria():
 
-    if request.method == "POST":
+    if session:
 
-        id_categoria = request.form.get('id_categoria')
+        if request.method == "POST":
 
-        nombre = request.form.get('nombre')
+            id_categoria = request.form.get('id_categoria')
 
-        categoria_instancia = filtrar_categoria(id_categoria)
+            nombre = request.form.get('nombre')
 
-        categoria = categoria_instancia[0]
+            categoria_instancia = filtrar_categoria(id_categoria)
 
-        flag = Categoria.validar_nombre(nombre)
+            categoria = categoria_instancia[0]
 
-        if flag:
+            flag = Categoria.validar_nombre(nombre)
 
-            mensaje = modificar_categoria(id_categoria,nombre)
-            flash(mensaje)
+            if flag:
 
-            return redirect(url_for('index_categoria'))            
+                mensaje = modificar_categoria(id_categoria,nombre)
+                flash(mensaje)
 
-            #return render_template('categoria/index.html', mensaje=mensaje)
+                return redirect(url_for('index_categoria'))            
 
-        else:
+            else:
 
-            mensaje = "El nombre ingresado no es valido."
-            return render_template('/categoria/edit.html', categoria=categoria, mensaje=mensaje)
+                mensaje = "El nombre ingresado no es valido."
+                return render_template('/categoria/edit.html', categoria=categoria, mensaje=mensaje)
 
+        else: redirect(url_for('index_categoria'))
+
+    else: return redirect(url_for("error"))
 
 @app.route("/categoria/visible", methods=["GET","POST"])
 def categoria_visible():
 
-    if request.method == "POST":
+    if session:
 
-        resultado = categorias_filtros_habilitadas()
+        if request.method == "POST":
 
-        if resultado[0] is not None:
+            resultado = categorias_filtros_habilitadas("habilitadas")
 
-            categorias = resultado[0]
+            if resultado[0] is not None:
 
-            mensaje = resultado[1]
+                categorias = resultado[0]
 
-            flash(mensaje)
+                mensaje = resultado[1]
 
-            return render_template('categoria/index.html', categorias=categorias)
+                flash(mensaje)
 
+                return render_template('categoria/index.html', categorias=categorias)
+
+            else:
+
+                mensaje = resultado[1]
+
+                flash(mensaje)
+
+                return render_template("categoria/index.html",mensaje=mensaje)
+    
         else:
 
-            mensaje = resultado[1]
-
-            flash(mensaje)
-
-            return render_template("categoria/index.html",mensaje=mensaje)
-    
-    else:
-
             return redirect(url_for('index_categoria'))
+    
+    else: return redirect(url_for("error"))
 
 
 @app.route("/categoria/novisible", methods=["GET","POST"])
 
 def categoria_novisible():
 
-    if request.method == "POST":
 
-        resultado = categorias_filtros_deshabilitadas()
+    if session:
 
-        if resultado[0] is not None:
+        if request.method == "POST":
 
-            categorias = resultado[0]
+            resultado = categorias_filtros_habilitadas("deshabilitadas")
 
-            mensaje = resultado[1]
+            if resultado[0] is not None:
 
-            flash(mensaje)
+                categorias = resultado[0]
 
-            return render_template('categoria/index.html', categorias=categorias)
+                mensaje = resultado[1]
 
-        else:
+                flash(mensaje)
 
-            mensaje = resultado[1]
+                return render_template('categoria/index.html', categorias=categorias)
 
-            flash(mensaje)
+            else:
 
-            return render_template('categoria/index.html', mensaje=mensaje)
+                mensaje = resultado[1]
+
+                flash(mensaje)
+
+                return render_template('categoria/index.html', mensaje=mensaje)
     
-    else:
+        else:
 
             return redirect(url_for('index_categoria'))
     
+    else: return redirect(url_for("error"))
 
 
 
@@ -308,15 +329,17 @@ def categoria_novisible():
 
 def index_provincias():
     
+    if session:
    
-    resultado = mostrar_provincias()
+        resultado = mostrar_provincias()
 
-    provincias = resultado[0]
+        provincias = resultado[0]
 
-    mensaje = resultado[1]
+        mensaje = resultado[1]
 
-    return render_template("/provincia/index.html", provincias = provincias, mensaje=mensaje)
+        return render_template("/provincia/index.html", provincias = provincias, mensaje=mensaje)
 
+    else: return redirect(url_for("error"))
 
 if __name__ == "__main__":
     app.run(debug=True)
