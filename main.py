@@ -4,7 +4,7 @@ from app.models.Categoria import Categoria
 from app.controller.categoria_controller import agregar_categoria,mostrar_categorias,deshabilitar_categoria
 import app.conexion as db
 from app.controller.sucursal_controlador import get_sucursal 
-from app.controller.usuario_controlador import verificar_login
+from app.controller.usuario_controlador import verificar_login, get_sucursal_por_usuario
 from app.controller.producto_controller import agregar_producto, deshabilitar_producto, mostrar_productos  # Importa funciones necesarias
 
 
@@ -23,8 +23,10 @@ def hello_world():
         email = request.form["email"]
         cont = request.form["cont"]
 
-        if verificar_login(email, cont):
-            session['usuario'] = email
+        user = verificar_login(email, cont)
+
+        if user:
+            session['usuario'] = user
             return render_template("index.html", success=success, sucursales=sucursales)
         else:
             return render_template('login.html', error=error)
@@ -36,11 +38,23 @@ def hello_world():
 @app.route("/pedidos")
 def pedidos():
     #if session:
-        return render_template("pedidos.html")
+        usuario = session.get("usuario")
+        
+        id_sucursal_de_usuario = usuario[1]
+
+        sucursaldelusuario = get_sucursal_por_usuario(id_sucursal_de_usuario)
+        
+        sucursales = get_sucursal()
+        return render_template("pedidos.html", sucursales = sucursales, sucursaldelusuario = sucursaldelusuario)
    # else:
       #  return redirect(url_for("error"))
     
-
+@app.route("/productosdesucursal")
+def pedidos():
+    #if session:
+        
+   # else:
+      #  return redirect(url_for("error"))
 
 
 

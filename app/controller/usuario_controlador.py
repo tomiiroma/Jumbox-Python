@@ -26,3 +26,13 @@ def verificar_login(email, cont):
     else:
         return None
 
+def get_sucursal_por_usuario(usuarioid):
+    conn = obtener_conexion()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT sucursal.nombre_sucursal AS nombre_sucursal FROM usuario JOIN sucursal ON usuario.fk_sucursal = sucursal.id_sucursal WHERE usuario.id_usuario = ?", (usuarioid,))
+    sucursal = cursor.fetchone()
+
+    if sucursal:
+        nombre_sucursal = sucursal[0]
+        return nombre_sucursal
