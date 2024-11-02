@@ -120,14 +120,15 @@ def deshabilitar_producto(id_producto):
         cursor.execute('SELECT estado FROM producto WHERE id_producto = ?', (id_producto))
         fila = cursor.fetchone()
 
+        print(fila[0])
         if fila:
             # Cambiamos el estado
-            if fila[0] == 1:  # Si el estado es 1 (habilitado)
-                cursor.execute("UPDATE producto SET estado = 0 WHERE id_producto = ?", (id_producto))
+            if fila[0] == '1':  # Si el estado es 1 (habilitado)
+                cursor.execute("UPDATE producto SET estado = '0' WHERE id_producto = ?", (id_producto))
                 conn.commit()
                 return "Producto deshabilitado."
             else:  # Si el estado es 0 (deshabilitado)
-                cursor.execute("UPDATE producto SET estado = 1 WHERE id_producto = ?", (id_producto))
+                cursor.execute("UPDATE producto SET estado = '1' WHERE id_producto = ?", (id_producto))
                 conn.commit()
                 return "Producto habilitado."
         else:

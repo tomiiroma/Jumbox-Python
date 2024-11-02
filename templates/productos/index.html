@@ -43,14 +43,16 @@
                     <td>{{ producto.marca }}</td>
                     <td>${{ producto.precio }}</td>
                     
-                    <td>{% if producto.estado == 1 %} Disponible {% else %} No disponible {% endif %}</td>
+                    <td>{% if producto.estado == "1" %} Disponible {% else %} No disponible {% endif %}</td>
                     <td>{% if producto.cantidad == 0 %} No hay Stock {% else %} {{ producto.cantidad }} {% endif %}</td>
                     <td>
                         <form method="POST" action="/productos/modificar">
                             <input type="hidden" name="id_producto" value="{{ producto.idProducto }}">
-                            <button type="submit" class="btn {% if producto.estado == 1 %}btn-danger{% else %}btn-success{% endif %} btn-sm">
-                                {% if producto.estado == 1 %}Deshabilitar{% else %}Habilitar{% endif %}
-                            </button>
+
+                    <button type="submit" class="btn {% if producto.estado == '1' %}btn-danger{% else %}btn-success{% endif %} btn-sm">
+                        {% if producto.estado == "1" %}Deshabilitar{% else %}Habilitar{% endif %}
+                    </button>
+        
                         </form>
                     </td>
                 </tr>

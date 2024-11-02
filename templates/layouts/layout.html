@@ -34,6 +34,9 @@
                     <ul class="navbar-nav">
 
                         {% if session['usuario'] %}
+                            <li class="nav-item nombre">
+                                {{ session['usuario'][2] }}
+                            </li>
                             <li class="nav-item">
                                 <a href="/logout" type="button" class="btn btn-outline-primary">Cerrar Sesion</a>
                             </li>
