@@ -26,7 +26,7 @@ def verificar_login(email, cont):
     else:
         return None
 
-def get_sucursal_por_usuario(usuarioid):
+def get_nombresucursal_por_usuario(usuarioid):
     conn = obtener_conexion()
     cursor = conn.cursor()
 
