@@ -3,11 +3,12 @@ from app.models.Sucursal import Sucursal
 from app.models.Categoria import Categoria
 from app.controller.categoria_controller import agregar_categoria,mostrar_categorias,deshabilitar_categoria,filtrar_categoria,modificar_categoria,categorias_filtros_habilitadas
 import app.conexion as db
-from app.controller.sucursal_controlador import get_sucursal 
+from app.controller.sucursal_controlador import get_sucursal,mostrar_sucursales
 from app.controller.usuario_controlador import verificar_login, get_sucursal_por_usuario
-from app.controller.producto_controller import agregar_producto, deshabilitar_producto, mostrar_productos  # Importa funciones necesarias
+from app.controller.producto_controller import agregar_producto, deshabilitar_producto, mostrar_productos # Importa funciones necesarias
 from app.controller.provincia_controller import mostrar_provincias
-
+from app.controller.inventario_controller import selec_inventario
+from app.controller.detalle_inventario_controller import filtrar_productos_sucursal
 
 app = Flask(__name__)
 app.secret_key = "secretkey"
@@ -340,6 +341,65 @@ def index_provincias():
         return render_template("/provincia/index.html", provincias = provincias, mensaje=mensaje)
 
     else: return redirect(url_for("error"))
+
+
+@app.route("/detalle_inventario/index", methods=["GET","POST"])
+
+def index_inventario():
+    
+    sucursales = mostrar_sucursales()
+
+    if len(sucursales)>0:
+
+
+        return render_template("/detalle_inventario/index.html", sucursales = sucursales)
+
+
+    else:
+
+        mensaje = "No hay sucursales disponibles"
+        
+        return render_template("/detalle_inventario/index.html", mensaje = mensaje)
+
+
+
+@app.route("/detalle_inventario/productos_sucursal", methods=["GET","POST"])
+
+def productos_inventario():
+
+    if request.method == "POST":
+        
+        fk_sucursal = request.form.get('sucursales')
+
+        print(fk_sucursal)
+
+        inventario = selec_inventario(fk_sucursal)
+
+        if inventario != "La sucursal no tiene inventario.":
+
+            productos = filtrar_productos_sucursal(inventario)
+
+
+            if productos is not None:
+                
+                print(productos)
+                print("Pase por aca y el tamaño de la lista es: "+str(len(productos)))
+                return render_template("/detalle_inventario/productos_sucursal.html", productos = productos, inventario = inventario)
+
+
+            else:
+
+                return render_template("/detalle_inventario/productos_sucursal.html", productos = productos, inventario = inventario)
+
+        
+
+        else: return render_template("/detalle_inventario/index.html", inventario = inventario)
+
+    else:
+        sucursales = get_sucursal()
+
+        return render_template("index.html", sucursales=sucursales)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,4 +1,5 @@
 from app.conexion import obtener_conexion
+from app.models.Sucursal import Sucursal
 
 def get_sucursal():
     conn = obtener_conexion()
@@ -25,3 +26,37 @@ def get_sucursal():
         })
         
     return sucursales
+
+
+def mostrar_sucursales():
+
+    try:
+
+        lista_sucursal = []
+
+        sucursales = get_sucursal()
+
+        if sucursales:
+
+            for sucursal in sucursales:
+
+                obj_sucursal = Sucursal(
+                    id_sucursal=sucursal['id_sucursal'],
+                    nombre_sucursal=sucursal['nombre_sucursal'],
+                    provincia=sucursal['nombre_provincia'],
+                    localidad=sucursal['localidad'],
+                    calle=sucursal['calle'],
+                    altura=sucursal['altura'],
+                    telefono=sucursal['telefono']
+                )   
+                lista_sucursal.append(obj_sucursal)
+
+            return lista_sucursal
+
+        else:
+
+            return "No hay sucursales disponibles"
+    
+    except Exception as error:
+
+            return "error: "+str(error)
