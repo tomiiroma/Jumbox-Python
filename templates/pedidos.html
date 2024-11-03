@@ -5,16 +5,38 @@
 {% block content %}
 <div class="container">
     <h1>Gestion de pedidos</h1>
-    <form action="/productosdesucursal">
-    <select class="form-select" aria-label="Elige la sucursal a la que quieres pedir">
+    <form action="/pedidos" method="POST">
+    <select class="form-select" name="sucursalelegida" aria-label="Elige la sucursal a la que quieres pedir">
         <option selected value="vacio">Seleccione una Sucursal</option>
         {% for sucursal in sucursales %}
-        <option value="{{ sucursal.nombre }}">{{ sucursal.nombre_sucursal }} - {{ sucursal.nombre_provincia }}</option>
+        <option value="{{ sucursal.id_sucursal }}">{{ sucursal.nombre_sucursal }} - {{ sucursal.nombre_provincia }}</option>
         {% endfor %}
       </select>
-
       <button type="submit" class="btn btn-success btnbuscarproductos">Buscar Productos</button>
     </form>
-      <small class="text-muted"> No puedes pedir pedidos a tu propia sucursal</small>
+
+    {% if errorsucursal %}
+      <small class="text-danger"> {{ errorsucursal }} </small>
+    {% endif %}
+    
+      {% if sucursalelegida %}
+        <h1>{{ sucursalelegida }}</h1>
+      {% endif %}
+
+      {% if inventario %}
+        {% for productoinventario in inventario%}
+        <div class="col-md-4">
+          <div class="card">
+              <img src="ruta/de/la/imagen.jpg" alt="imagen del Producto" class="card-img-top">
+              <div class="card-body">
+                  <h5 class="card-title">{{ productoinventario.nombre_producto }}</h5>
+                  <p class="card-text">{{ productoinventario.descripcion }}</p>
+                  <p class="card-price font-weight-bold">{{ productoinventario.precio }}</p>
+                  <button class="btn btn-success">Añadir al Carrito</button>
+              </div>
+          </div>
+      </div>
+        {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}

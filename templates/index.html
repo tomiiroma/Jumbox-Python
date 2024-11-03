@@ -6,9 +6,14 @@
 
 {% block content %}
     <div class="container">
-        {% if success %}
-        <h2 class="alert alert-success">{{ success }}</h2>
-        {% endif %}
+  
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <p class="alert alert-success">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
         <h1 class="titulobienvenidos text-center">Bienvenido a Jumbox</h1>
         <p class="parrafobienvenidos text-center">Programa de gestion para las sucursales y productos <strong>JUMBOX</strong>.</p>

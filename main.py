@@ -3,8 +3,8 @@ from app.models.Sucursal import Sucursal
 from app.models.Categoria import Categoria
 from app.controller.categoria_controller import agregar_categoria,mostrar_categorias,deshabilitar_categoria
 import app.conexion as db
-from app.controller.sucursal_controlador import get_sucursal 
-from app.controller.usuario_controlador import verificar_login, get_sucursal_por_usuario
+from app.controller.sucursal_controlador import get_sucursal, get_inventario_por_sucursal
+from app.controller.usuario_controlador import verificar_login, get_nombresucursal_por_usuario
 from app.controller.producto_controller import agregar_producto, deshabilitar_producto, mostrar_productos  # Importa funciones necesarias
 
 
@@ -13,7 +13,7 @@ app.secret_key = "secretkey"
 
 
 @app.route("/",  methods=["GET", "POST"])
-def hello_world():
+def home():
     db.iniciar_db()
     success = "Inicio de Sesion Exitoso"
     error="Email o contraseña incorrectas"
@@ -27,7 +27,8 @@ def hello_world():
 
         if user:
             session['usuario'] = user
-            return render_template("index.html", success=success, sucursales=sucursales)
+            flash("Inicio de Sesion Exitoso")
+            return redirect(url_for('home'))
         else:
             return render_template('login.html', error=error)
 
@@ -35,26 +36,36 @@ def hello_world():
     return render_template("index.html", sucursales=sucursales)
 
     
-@app.route("/pedidos")
+@app.route("/pedidos", methods=["GET", "POST"])
 def pedidos():
-    #if session:
+    if session:
         usuario = session.get("usuario")
-        
+        sucursales = get_sucursal()
+
+
         id_sucursal_de_usuario = usuario[1]
 
-        sucursaldelusuario = get_sucursal_por_usuario(id_sucursal_de_usuario)
+        sucursaldelusuario = get_nombresucursal_por_usuario(id_sucursal_de_usuario)
+
+        if request.method == "POST":
+            sucursalelegida = request.form.get("sucursalelegida")
+
+            if sucursalelegida == "vacio":
+                errorsucursal = "Por favor, seleccione una sucursal valida"
+                return render_template("pedidos.html", sucursales = sucursales, errorsucursal=errorsucursal) 
+            
+            elif int(sucursalelegida) == id_sucursal_de_usuario:
+                 errorsucursal = "No puedes realizar pedidos a tu propia sucursal"
+                 return render_template("pedidos.html", sucursales = sucursales ,sucursalelegida=sucursalelegida, errorsucursal=errorsucursal) 
+            
+            else:
+                inventario = get_inventario_por_sucursal(sucursalelegida)
+                return render_template("pedidos.html",sucursales = sucursales, sucursalelegida=sucursalelegida, inventario=inventario) 
         
-        sucursales = get_sucursal()
         return render_template("pedidos.html", sucursales = sucursales, sucursaldelusuario = sucursaldelusuario)
-   # else:
-      #  return redirect(url_for("error"))
+    else:
+        return redirect(url_for("error"))
     
-@app.route("/productosdesucursal")
-def pedidos():
-    #if session:
-        
-   # else:
-      #  return redirect(url_for("error"))
 
 
 
@@ -89,7 +100,9 @@ def nueva_categoria():
 
 @app.route("/logout")
 def logout():
-    return "cerrar sesion"
+    session.pop('usuario')
+    flash("Se cerro sesion correctamente")
+    return redirect(url_for('home'))
 
 
 @app.route("/categoria/index")
