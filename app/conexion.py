@@ -113,6 +113,14 @@ def iniciar_db():
         cursor.execute("INSERT INTO usuario (fk_sucursal, nombre, email, contraseña, rol) VALUES (2, 'María Gómez', 'maria.gomez@example.com', 'contraseña123', 'usuario')")
         cursor.execute("INSERT INTO usuario (fk_sucursal, nombre, email, contraseña, rol) VALUES (3, 'Luis Rodríguez', 'luis.rodriguez@example.com', 'contraseña123', 'usuario')")
 
+    if cursor.execute("SELECT COUNT(*) FROM INVENTARIO").fetchone()[0] == 0:
+        cursor.execute("INSERT INTO inventario (fk_sucursal) VALUES (1)")
+
+
+    if cursor.execute("SELECT COUNT(*) FROM DETALLE_INVENTARIO").fetchone()[0] == 0:
+        cursor.execute("INSERT INTO detalle_inventario(fk_inventario,fk_producto,stock,fecha_modificacion) VALUES (1,2,100,'2024-11-03')")
+
+
     # Guardar (commit) los cambios
     conn.commit()
 
