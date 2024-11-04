@@ -7,7 +7,10 @@ from app.controller.sucursal_controlador import get_sucursal, get_inventario_por
 from app.controller.usuario_controlador import verificar_login, get_nombresucursal_por_usuario
 from app.controller.producto_controller import agregar_producto, deshabilitar_producto, mostrar_productos  # Importa funciones necesarias
 from app.controller.sucursal_controlador import get_sucursal,mostrar_sucursales
-from app.controller.usuario_controlador import verificar_login, get_sucursal_por_usuario
+
+from app.controller.usuario_controlador import verificar_login, get_nombresucursal_por_usuario
+
+from app.controller.usuario_controlador import verificar_login, get_nombresucursal_por_usuario
 from app.controller.producto_controller import agregar_producto, deshabilitar_producto, mostrar_productos # Importa funciones necesarias
 from app.controller.provincia_controller import mostrar_provincias
 from app.controller.inventario_controller import selec_inventario
