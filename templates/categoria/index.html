@@ -1,0 +1,117 @@
+{% extends "layouts/layout.html" %}
+
+{% block title %}Categorias{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1 class="titulo_centrado">Categorias</h1>
+    
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-success">
+        <ul>
+            {% for message in messages %}
+            <li class="centrado">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% endwith %}
+</div>
+
+<section class="container mt-5">
+
+    <div class="grupo_botones">
+
+        
+        <a href="/categoria/create" class="btn btn-primary mb-3 mboton tmnbtn">Crear categoria</a>
+        
+        {% if '/categoria/index' in request.url %}
+
+    <form action="/categoria/visible" method="post">
+        
+        <button type="submit" class="btn btn-success btn-sm mboton tmnbtn">Filtrar categorias habilitadas</button>
+        
+    </form>
+
+    <form action="/categoria/novisible" method="post">
+        
+        <button type="submit" class="btn btn-danger btn-sm mboton tmnbtn">Filtrar categorias Deshabilitadas</button>
+        
+    </form>
+
+    {% else %}
+    
+    <form action="/categoria/index" method="post">
+        
+        <button type="submit" class="btn btn-primary btn-sm mboton tmnbtn">Quitar el filtro</button>
+        
+    </form>
+    
+    {% endif %}
+    
+   </div>
+
+   <div class="tablapadding">
+
+       <table class="table table-striped table-bordered">
+        <caption class="text-center font-weight-bold">Lista de categorias</caption>
+        <thead>
+            <tr>
+
+                <th>Id categoria</th>
+                <th>Nombre</th>
+                <th>Estado </th>
+                <th>Acciones </th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            {% if categorias %}
+            {% for categoria in categorias %}
+            <tr>
+                <td>{{categoria.get_id_categoria()}} </td>
+                <td>{{categoria.get_nombre_categoria()}} </td>
+                <td>{% if categoria.get_visible() == 1 %} Habilitada {% else %} Deshabilitada {% endif %} </td>
+                <td>
+                    <div class="grupo_botones">
+
+                        <form method="POST" action="{{ url_for('form_categoria_nombre', id_categoria=categoria.get_id_categoria()) }}">
+    
+                            <input type="hidden" name="id_categoria" value="{{ categoria.get_id_categoria() }}">
+                            
+                            <button type="submit" class="btn btn-primary btn-sm">Modificar</button>
+                            
+                        </form>
+
+                        {% if categoria.get_visible() == 1 %}
+                        <form method="POST" action="/categoria/modificar">
+                            <input type="hidden" name="id_categoria" value="{{ categoria.get_id_categoria() }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Deshabilitar</button>
+                        </form>
+                        {% else %}
+                        <form method="POST" action="/categoria/modificar">
+                            <input type="hidden" name="id_categoria" value="{{ categoria.get_id_categoria() }}">
+                            <button type="submit" class="btn btn-success btn-sm">Habilitar</button>
+                        </form>
+                    {% endif %}
+                    
+                    
+                    </div>
+                </td>
+                
+            </tr>
+            {% endfor %}
+            
+            {% else %}
+            <td colspan="4">No hay categorias disponibles</td>
+            {% endif %}
+        </tbody>
+        
+        <tfoot colspan="4">Categorias Jumbox</tfoot>
+        
+    </table>
+</div> 
+</section>
+    {% endblock %}

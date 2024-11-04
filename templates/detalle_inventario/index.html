@@ -1,0 +1,53 @@
+{% extends "layouts/layout.html" %}
+
+
+{% block title %}Detalles del inventario{% endblock %}
+
+{% block content %}
+
+
+
+<section class="container mt-5">
+  {% if inventario %}  
+    <h2>
+        {{ inventario }}
+    </h2>
+   {% endif %}
+    
+    <h1 class="centrado">Seleccionar sucursal</h1>
+    
+    <form action="/detalle_inventario/productos_sucursal" method="POST">
+        
+        <div class="mb-3">
+            
+            <label for="sucursales"> Sucursales: </label>
+            
+            {% if sucursales %}
+            
+            <select name="sucursales" id="sucursales">
+                
+                {% for sucursal in sucursales %}
+                
+                <option value="{{ sucursal.get_id_sucursal() }}">{{ sucursal.get_nombre_sucursal() }}</option>
+                
+                {% endfor %}
+                
+            </select>
+            
+    <button type="submit">Continuar</button>
+
+    
+</div>
+    
+
+</form>
+</section>
+
+{% else %}
+
+<p>{{ mensaje }}</p>
+
+{% endif %}
+
+
+{% endblock %}

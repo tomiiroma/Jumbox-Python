@@ -35,3 +35,63 @@ h1, h2 {
 .nav-link:hover {
     color: #007bff; /* Cambia el color al pasar el mouse */
 }
+
+.titulobienvenidos{
+    font-weight: 600;
+}
+.parrafobienvenidos{
+    font-weight: 500;
+}
+
+.tablapadding{
+
+padding: 40px;
+
+}
+
+.titulo_centrado{
+
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.mboton{
+
+margin-left: 40px;
+margin-top: 20px;
+
+}
+
+.centrado{
+
+    text-align: center;
+    list-style-type: none; 
+    padding-left: 0;
+
+}
+
+.btnbuscarproductos{
+    margin-top: 15px;
+}
+
+.grupo_botones{
+    display: flex; 
+    gap: 10px; /* espaciado */
+}
+.tmnbtn {
+    height: 50px;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    font-size: 1em;
+}
+
+
+.nombre{
+display: flex;
+
+align-items: center;
+
+margin-right: 35px;
+
+}

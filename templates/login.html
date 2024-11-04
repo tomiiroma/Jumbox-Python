@@ -1,26 +1,34 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Jumbox</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
-</head>
-<body>
+{% extends "layouts/layout.html" %}
 
-    <div class="container">
-        <h1 class="mt-5">Iniciar Sesión</h1>
-        <form method="POST" action="/">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-        </form>
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
     </div>
-</body>
-</html>
+    {% endif %}
+    <h2 class="text-center mt-4">Inicio de Sesión para Empleados</h2>
+    <p class="text-center text-muted">Bienvenido al sistema de gestión de <strong>Jumbox</strong>. Si necesita una cuenta, contacte a su supervisor o administrador.</p>
+
+
+    <form action="/" method="POST">
+        <div class="form-group">
+            <label for="email">Usuario</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su email">
+        </div>
+
+        <div class="form-group mt-3">
+            <label for="cont">Contraseña</label>
+            <input type="password" class="form-control" id="cont" name="cont" placeholder="Ingrese su contraseña">
+        </div>
+        
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

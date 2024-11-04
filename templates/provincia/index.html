@@ -1,0 +1,55 @@
+{% extends "layouts/layout.html" %}
+
+{% block title %}Provincias{% endblock %}
+
+{% block content %}
+
+<section class="container mt-5">
+
+    
+    <h1 class="centrado">Tablas de provincias</h1>
+    
+    
+    <table class="table table-striped table-bordered">
+        <caption class="text-center font-weight-bold">Lista de provincias</caption>
+    <thead>
+        <tr>
+            <th>Id provincia</th>
+            <th>Nombre</th>
+            <th> Habilitada: </th>
+        </tr>
+    </thead>
+    <tbody>
+      {% if provincias %}
+      
+      {% for provincia in provincias %}
+      
+
+      <tr>
+
+          <td>{{provincia.get_id_provincia()}}</td>
+          <td>{{provincia.get_nombre_provincia()}}</td>
+          <td>{{provincia.get_visible()}}</td>
+        
+      </tr>
+      
+      
+      {% endfor %}
+      
+      {% else %}
+      
+      <td colspan="4">No hay provincias actualmente</td>
+      
+      
+    {% endif %}
+
+    </tbody>
+    
+    <tfoot colspan="4">Jumbox</tfoot>
+    
+</table>
+
+
+</section>
+
+{% endblock %}
