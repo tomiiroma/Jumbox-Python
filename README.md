@@ -58,6 +58,7 @@ Actualmente, las tareas en proceso para completar el MVP son:
 
 [Acceder al Backlog en Trello](https://trello.com/invite/b/66e81fbbdd986ae76be41432/ATTI316dd4aa424008233ab8e7e63e6db5448F102F17/trabajo-python)
 
+
 ---
 
 
@@ -73,12 +74,7 @@ Actualmente, las tareas en proceso para completar el MVP son:
 - Completar las tareas del MVP mencionadas en el backlog.
 - Realizar pruebas de las funcionalidades implementadas para asegurar una correcta gestión del inventario, pedidos y flujo de usuarios.
 
-**GitHub y versionado**:
-
-- El proyecto ha sido subido a GitHub y ya cuenta con la primera versión, que incluye la estructura básica del sistema y la implementación de las clases mencionadas.
-- Se ha utilizado control de versiones para registrar cambios importantes en la estructura del código y las primeras funcionalidades.
-
-------------
+---
 **Diagramas**
 
 **Diagrama Entidad-Relación**: Se está trabajando en el diseño de la base de datos para representar las relaciones entre productos, categorías y sucursales.
