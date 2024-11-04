@@ -68,6 +68,8 @@ def pedidos():
         return redirect(url_for("error"))
     
 
+    
+
 #@app.route("/productosdesucursal")
 #def pedidosNose():
     #if session:
