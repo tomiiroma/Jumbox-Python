@@ -1,8 +1,9 @@
-#  Jumbox
-####  Plataforma de Gestión de Inventarios en Supermercados
+# Jumbox - Plataforma de Gestión de Inventarios en Supermercados
 
-Este proyecto consiste en el desarrollo de un sistema de gestión para una cadena de supermercados. El sistema permite la administración de productos, categorías, inventario, y la gestión de pedidos y transferencias entre las diferentes sucursales. El objetivo principal del proyecto es proporcionar una herramienta eficiente para que las sucursales puedan comunicar sus necesidades de productos, mantener el inventario actualizado, y gestionar los pedidos de forma rápida y sencilla.
+### Descripción
+**Jumbox** es un sistema de gestión diseñado para una cadena de supermercados. La plataforma permite administrar productos, categorías, inventario y gestionar pedidos y transferencias entre sucursales. Su objetivo principal es mejorar la comunicación entre sucursales, mantener el inventario actualizado y facilitar el manejo de pedidos de forma rápida y eficaz.
 
+---
 
 
 #####   El sistema está dividido en varias funcionalidades clave, que incluyen:
