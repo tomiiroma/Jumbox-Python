@@ -69,6 +69,12 @@ Actualmente, las tareas en proceso para completar el MVP son:
 
 ---
 
+### Documentación del Proyecto
+
+Para una descripción detallada de los requisitos y especificaciones del sistema, consulta el documento **SRS 1.1**: [Especificación de Requisitos del Software (SRS) 1.1](https://docs.google.com/document/d/1NW1u7IR9rL5aLbes2KhzWpooiADpHZZXL9GZh_jC1Ac/edit?usp=sharing)
+
+---
+
 ### Próximos pasos
 
 - Completar las tareas del MVP mencionadas en el backlog.
