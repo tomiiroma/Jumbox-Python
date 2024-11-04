@@ -1,0 +1,9 @@
+borrar carpeta .venv
+
+py -3 -m venv .venv   
+
+.venv\Scripts\activate     
+
+pip install Flask 
+
+flask --app main run --debug       
