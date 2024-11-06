@@ -55,6 +55,17 @@ def filtrar_productos_sucursal(fk_inventario):
         conn.close()
 
 
+def agregar_a_inventario(idproducto, fk_inventario):
+    conn = obtener_conexion()
+    cursor = conn.cursor()
+    cursor.execute("SELECT cantidad FROM PRODUCTO WHERE id_producto = ?", (idproducto, ))
+    cantidadstock = cursor.fetchone()
+
+    cantidadstock = cantidadstock[0]
+
+    cursor.execute("INSERT INTO detalle_inventario (fk_inventario,fk_producto,stock,fecha_modificacion) VALUES (?,?,?, datetime('now'))", (fk_inventario, idproducto, cantidadstock))
+    conn.commit()
+    conn.close()
 
 
 

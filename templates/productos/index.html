@@ -46,14 +46,22 @@
                     <td>{% if producto.estado == "1" %} Disponible {% else %} No disponible {% endif %}</td>
                     <td>{% if producto.cantidad == 0 %} No hay Stock {% else %} {{ producto.cantidad }} {% endif %}</td>
                     <td>
+                        <div class="d-flex gap-2">
                         <form method="POST" action="/productos/modificar">
                             <input type="hidden" name="id_producto" value="{{ producto.idProducto }}">
 
                     <button type="submit" class="btn {% if producto.estado == '1' %}btn-danger{% else %}btn-success{% endif %} btn-sm">
                         {% if producto.estado == "1" %}Deshabilitar{% else %}Habilitar{% endif %}
                     </button>
-        
-                        </form>
+                </form>
+
+                    <form action="/productos/agregarinventario" method="POST">
+                        <input type="hidden" name="id_producto" value="{{ producto.idProducto }}">
+                    <button type="submit" class="btn btn-success btn-sm">
+                        Agregar a inventario
+                    </button>
+                </form>
+                    </div>
                     </td>
                 </tr>
                 {% endfor %}

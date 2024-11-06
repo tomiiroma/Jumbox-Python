@@ -29,3 +29,11 @@ def selec_inventario(fk_sucursal):
         cursor.close()
         conn.close()
 
+def get_inventario_por_usuario(idusuario):
+    conn = obtener_conexion()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT id_inventario  FROM inventario WHERE fk_sucursal = (SELECT fk_sucursal FROM usuario WHERE id_usuario = ?)", (idusuario, ))
+    id_inventario = cursor.fetchone()
+
+    return id_inventario[0]

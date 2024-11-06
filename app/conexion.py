@@ -52,6 +52,7 @@ def iniciar_db():
         marca TEXT NOT NULL,
         precio REAL NOT NULL,
         descripcion TEXT,
+        url_imagen TEXT,
         estado TEXT NOT NULL,
         cantidad INTEGER NOT NULL,  -- Nueva columna
         FOREIGN KEY (fk_categoria) REFERENCES categoria (id_categoria)
@@ -115,7 +116,10 @@ def iniciar_db():
 
     if cursor.execute("SELECT COUNT(*) FROM INVENTARIO").fetchone()[0] == 0:
         cursor.execute("INSERT INTO inventario (fk_sucursal) VALUES (1)")
-
+        cursor.execute("INSERT INTO inventario (fk_sucursal) VALUES (2)")
+        cursor.execute("INSERT INTO inventario (fk_sucursal) VALUES (3)")
+        cursor.execute("INSERT INTO inventario (fk_sucursal) VALUES (4)")
+        cursor.execute("INSERT INTO inventario (fk_sucursal) VALUES (5)")
 
     if cursor.execute("SELECT COUNT(*) FROM DETALLE_INVENTARIO").fetchone()[0] == 0:
         cursor.execute("INSERT INTO detalle_inventario(fk_inventario,fk_producto,stock,fecha_modificacion) VALUES (1,2,100,'2024-11-03')")

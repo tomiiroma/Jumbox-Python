@@ -13,8 +13,8 @@ from app.controller.usuario_controlador import verificar_login, get_nombresucurs
 from app.controller.usuario_controlador import verificar_login, get_nombresucursal_por_usuario
 from app.controller.producto_controller import agregar_producto, deshabilitar_producto, mostrar_productos # Importa funciones necesarias
 from app.controller.provincia_controller import mostrar_provincias
-from app.controller.inventario_controller import selec_inventario
-from app.controller.detalle_inventario_controller import filtrar_productos_sucursal
+from app.controller.inventario_controller import selec_inventario, get_inventario_por_usuario
+from app.controller.detalle_inventario_controller import filtrar_productos_sucursal, agregar_a_inventario
 
 app = Flask(__name__)
 app.secret_key = "secretkey"
@@ -221,6 +221,24 @@ def cambiar_estado_productos():
         print(mensaje)
         flash(mensaje)
 
+        return redirect(url_for('index_producto'))
+    
+@app.route("/productos/agregarinventario", methods=["POST"])
+def agregar_producto_inventario():
+    if request.method == "POST":
+        id_producto = request.form.get('id_producto')
+
+        if not id_producto:
+            flash("No se encontro el producto")
+            return redirect(url_for('index_producto'))
+
+        usuario = session.get("usuario")
+        idusuario = usuario[0]
+        
+        id_inventario = get_inventario_por_usuario(idusuario)
+        agregar_a_inventario(id_producto, id_inventario)
+
+        flash("Producto agregado correctamente al Inventario")
         return redirect(url_for('index_producto'))
 
 

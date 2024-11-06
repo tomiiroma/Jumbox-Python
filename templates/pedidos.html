@@ -18,21 +18,21 @@
     {% if errorsucursal %}
       <small class="text-danger"> {{ errorsucursal }} </small>
     {% endif %}
-
-      {% if inventario %}
-        {% for productoinventario in inventario%}
-        <div class="col-md-4">
+    {% if inventario %}
+    <div class="row">
+      {% for productoinventario in inventario %}
+        <div class="col-sm-6 col-md-4 mb-4">
           <div class="card">
-              <img src="https://fakeimg.pl/175x125/" alt="imagen del Producto" class="card-img-top">
-              <div class="card-body">
-                  <h5 class="card-title">{{ productoinventario.nombre_producto }}</h5>
-                  <p class="card-text">{{ productoinventario.descripcion }}</p>
-                  <p class="card-price font-weight-bold">{{ productoinventario.precio }}</p>
-                  <button class="btn btn-success">Añadir al Carrito</button>
-              </div>
+            <img src="https://fakeimg.pl/175x125/" alt="imagen del Producto" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">{{ productoinventario.nombre_producto }}</h5>
+              <p class="card-text">{{ productoinventario.descripcion }}</p>
+              <p class="card-price font-weight-bold">{{ productoinventario.precio }}</p>
+              <button class="btn btn-success">Añadir al Pedido</button>
+            </div>
           </div>
-      </div>
-        {% endfor %}
-    {% endif %}
-</div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
 {% endblock %}
