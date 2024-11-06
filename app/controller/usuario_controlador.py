@@ -14,6 +14,8 @@ def insertar_usuario(fk_sucursal,nombre,email, contraseña,rol):
     conn.close()
 
 
+
+
 def verificar_login(email, cont):
     conn = obtener_conexion()
     cursor = conn.cursor()
