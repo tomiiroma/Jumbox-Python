@@ -175,31 +175,37 @@ def cambiar_estado_categoria():
 
 @app.route("/productos/create", methods=["GET", "POST"])
 def nuevo_producto():
-    if request.method == "POST":
-        nombre = request.form['nombre']
-        precio = request.form['precio']
-        marca = request.form['marca']
-        estado = int(request.form['estado'])
-        descripcion = request.form.get('descripcion', "")
-        categoria_id = request.form['categoria']  
-        cantidad = request.form['cantidad']
+    if session:
+        if request.method == "POST":
+            nombre = request.form['nombre']
+            precio = request.form['precio']
+            marca = request.form['marca']
+            estado = int(request.form['estado'])
+            descripcion = request.form.get('descripcion', "")
+            categoria_id = request.form['categoria']  
+            cantidad = request.form['cantidad']
 
-        agregar_producto(nombre, precio, marca, estado, descripcion, categoria_id, cantidad)
+            agregar_producto(nombre, precio, marca, estado, descripcion, categoria_id, cantidad)
 
-        mensaje = "Producto agregado correctamente."
+            mensaje = "Producto agregado correctamente."
 
-        return render_template('productos/create.html', mensaje=mensaje)
+            return render_template('productos/create.html', mensaje=mensaje)
 
-    categorias = mostrar_categorias()
-    return render_template('productos/create.html', categorias=categorias)
+        categorias = mostrar_categorias()
+        return render_template('productos/create.html', categorias=categorias)
+    else:
+        return redirect(url_for("error"))
+
 
 
 @app.route("/productos/index")
 def index_producto():
-    productos = mostrar_productos()  
-    print(f"Productos recuperados: {productos}")  # Para verificar qué datos estás obteniendo
-    return render_template('productos/index.html', productos=productos)
-
+    if session:
+        productos = mostrar_productos()  
+        print(f"Productos recuperados: {productos}")  # Para verificar qué datos estás obteniendo
+        return render_template('productos/index.html', productos=productos)
+    else:
+        return redirect(url_for("error"))
 
 
 @app.route("/productos/modificar", methods=["POST"])

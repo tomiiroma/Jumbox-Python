@@ -31,7 +31,7 @@ def get_sucursal():
 def get_inventario_por_sucursal(idsucursal):
     conn = obtener_conexion()
     cursor = conn.cursor()
-    cursor.execute("SELECT detalle_inventario.*, producto.* FROM detalle_inventario JOIN inventario ON detalle_inventario.fk_inventario = inventario.id_inventario JOIN producto ON detalle_inventario.fk_producto = producto.id_producto WHERE inventario.fk_sucursal = ?;", (idsucursal,))
+    cursor.execute("SELECT detalle_inventario.*, producto.* FROM detalle_inventario JOIN inventario ON detalle_inventario.fk_inventario = inventario.id_inventario JOIN producto ON detalle_inventario.fk_producto = producto.id_producto WHERE inventario.fk_sucursal = ? AND producto.estado = 1;", (idsucursal,))
     inventariodb = cursor.fetchall()
     inventarios = []
 
@@ -47,7 +47,8 @@ def get_inventario_por_sucursal(idsucursal):
             'nombre_producto': inventario[7],
             'marca': inventario[8],
             'precio': inventario[9],
-            'descripcion': inventario[10]
+            'estado': inventario[10],
+            'descripcion': inventario[11]
         })
         
     
