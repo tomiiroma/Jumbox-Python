@@ -1,4 +1,6 @@
+import os
 from flask import Flask, render_template, request, session, flash, redirect, url_for
+from werkzeug.utils import secure_filename
 from app.models.Sucursal import Sucursal
 from app.models.Categoria import Categoria
 from app.controller.categoria_controller import agregar_categoria,mostrar_categorias,deshabilitar_categoria,filtrar_categoria,modificar_categoria,categorias_filtros_habilitadas
@@ -16,8 +18,10 @@ from app.controller.provincia_controller import mostrar_provincias
 from app.controller.inventario_controller import selec_inventario, get_inventario_por_usuario
 from app.controller.detalle_inventario_controller import filtrar_productos_sucursal, agregar_a_inventario
 
+
 app = Flask(__name__)
 app.secret_key = "secretkey"
+app.config['UPLOAD_FOLDER'] = 'static/img-productos'
 
 
 @app.route("/",  methods=["GET", "POST"])
@@ -172,6 +176,9 @@ def cambiar_estado_categoria():
 
     else: return redirect(url_for("error"))
 
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route("/productos/create", methods=["GET", "POST"])
 def nuevo_producto():
@@ -185,7 +192,14 @@ def nuevo_producto():
             categoria_id = request.form['categoria']  
             cantidad = request.form['cantidad']
 
-            agregar_producto(nombre, precio, marca, estado, descripcion, categoria_id, cantidad)
+            file = request.files['imagen']
+
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                url_imagen = url_for('static', filename=f'img-productos/{filename}')
+
+            agregar_producto(nombre, precio, marca, estado, descripcion, categoria_id, cantidad, url_imagen)
 
             mensaje = "Producto agregado correctamente."
 

@@ -2,7 +2,7 @@ from app.conexion import obtener_conexion
 from ..models.Producto import Producto
 
 
-def agregar_producto(nombre, precio, marca, estado, descripcion, categoria_id,cantidad):
+def agregar_producto(nombre, precio, marca, estado, descripcion, categoria_id,cantidad, url_imagen):
     conn = obtener_conexion()
     cursor = conn.cursor()
 
@@ -15,8 +15,8 @@ def agregar_producto(nombre, precio, marca, estado, descripcion, categoria_id,ca
             return
         else:
             cursor.execute(
-                "INSERT INTO producto (nombre, precio, marca, estado, descripcion, fk_categoria, cantidad) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                (nombre, precio, marca, estado, descripcion, categoria_id, cantidad)
+                "INSERT INTO producto (nombre, precio, marca, estado, descripcion,url_imagen, fk_categoria, cantidad) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                (nombre, precio, marca, estado, descripcion,url_imagen, categoria_id, cantidad)
             )
             conn.commit()
             print("Producto agregado correctamente.")
@@ -46,10 +46,11 @@ def mostrar_productos():
                 nombre=columna[2],
                 precio=columna[4],
                 marca=columna[3],
-                estado=columna[6],
+                estado=columna[7],
                 descripcion=columna[5],
+                url_imagen = columna[6],
                 categoria=columna[1],  
-                cantidad=columna[7]
+                cantidad=columna[8]
             )
             lista_productos.append(producto)
 

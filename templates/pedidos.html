@@ -18,12 +18,13 @@
     {% if errorsucursal %}
       <small class="text-danger"> {{ errorsucursal }} </small>
     {% endif %}
+    
     {% if inventario %}
     <div class="row">
       {% for productoinventario in inventario %}
         <div class="col-sm-6 col-md-4 mb-4">
           <div class="card">
-            <img src="https://fakeimg.pl/175x125/" alt="imagen del Producto" class="card-img-top">
+            <img src="{{ productoinventario.url_imagen }}" width="170" height="200" alt="imagen del Producto" class="card-img-top img-fluid">            
             <div class="card-body">
               <h5 class="card-title">{{ productoinventario.nombre_producto }}</h5>
               <p class="card-text">{{ productoinventario.descripcion }}</p>

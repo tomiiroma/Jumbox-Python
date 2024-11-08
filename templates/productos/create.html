@@ -10,7 +10,7 @@
 <section class="container mt-5">
     <h1 class="text-center">Agregar un nuevo producto</h1>
     
-    <form method="POST" class="mt-4" action="/productos/create">
+    <form method="POST" class="mt-4" action="/productos/create" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre del producto:</label>
             <input type="text" name="nombre" id="nombre" class="form-control" required>
@@ -44,6 +44,7 @@
             <input type="number" name="cantidad" id="cantidad" class="form-control" step="0.01" required>
         </div>
 
+    
 
         <div class="mb-3">
             <label for="categoria" class="form-label">Categoría:</label>
@@ -52,6 +53,11 @@
                     <option value="{{ categoria.get_id_categoria() }}">{{ categoria.get_nombre_categoria() }}</option>
                 {% endfor %}
             </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="imagen" class="form-label">Imagen del Producto:</label>
+            <input type="file" name="imagen" id="imagen" class="form-control" step="0.01" required>
         </div>
 
         <div class="text-center">

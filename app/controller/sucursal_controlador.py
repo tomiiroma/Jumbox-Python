@@ -47,8 +47,8 @@ def get_inventario_por_sucursal(idsucursal):
             'nombre_producto': inventario[7],
             'marca': inventario[8],
             'precio': inventario[9],
-            'estado': inventario[10],
-            'descripcion': inventario[11]
+            'url_imagen': inventario[11],
+            'descripcion': inventario[10]
         })
         
     
