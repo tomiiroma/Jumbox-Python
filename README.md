@@ -1,97 +1,111 @@
 # Jumbox - Plataforma de Gestión de Inventarios en Supermercados
 
 ### Descripción
+
 **Jumbox** es un sistema de gestión diseñado para una cadena de supermercados. La plataforma permite administrar productos, categorías, inventario y gestionar pedidos y transferencias entre sucursales. Su objetivo principal es mejorar la comunicación entre sucursales, mantener el inventario actualizado y facilitar el manejo de pedidos de forma rápida y eficaz.
 
----
+Este proyecto es un trabajo práctico de la materia **Análisis y Metodología de Sistemas** desarrollado por:
 
+- **Agustín Agüero**
+- **Daniel Fernández**
+- **Tomás Roma**
+
+---
 
 ### Estructura del Proyecto
 
 El proyecto está organizado en las siguientes carpetas:
 
-- **app/**: Contiene los controladores, modelos y la conexión a la base de datos (SQLite3).
-- **static/**: Carpeta de estilos CSS para la aplicación.
+- **app/**: Contiene los controladores, modelos y la conexión a la base de datos (**SQLite3**).
+- **static/**: Archivos de estilos CSS para la aplicación.
 - **templates/**: Contiene los archivos HTML utilizados en la interfaz de usuario.
-- **tests/**: Contiene las pruebas unitarias del sistema.
-- **main.py**: Archivo principal que se ejecuta para iniciar la aplicación; define todas las rutas del sistema.
+- **tests/**: Pruebas unitarias del sistema.
+- **main.py**: Archivo principal que define las rutas del sistema y ejecuta la aplicación.
 
 ---
 
-
 ### Funcionalidades Clave
 
-1. **Gestión de productos**: Permite agregar, editar y eliminar productos, asociándolos a categorías específicas.
-   
-2. **Gestión de categorías**: Creación, modificación y eliminación de categorías de productos para su mejor organización.
+1. **Gestión de productos**
+   - Agregar, editar y eliminar productos.
+   - Asociar productos a categorías específicas.
 
-3. **Inventario en tiempo real**: Visualización actualizada del inventario de cada sucursal para optimizar el control de stock.
+2. **Gestión de categorías**
+   - Crear, modificar y eliminar categorías para organizar productos.
 
-4. **Transferencia de productos entre sucursales**: Comunicación y transferencia de productos entre tiendas, equilibrando la disponibilidad de inventario.
+3. **Inventario en tiempo real**
+   - Visualización actualizada del stock en cada sucursal.
 
-5. **Gestión de pedidos**: Creación, modificación, confirmación y cancelación de pedidos, con un historial para mejorar las operaciones de abastecimiento.
+4. **Transferencia de productos entre sucursales**
+   - Comunicación entre tiendas para equilibrar el inventario.
+
+5. **Gestión de pedidos**
+   - Crear, confirmar, modificar y cancelar pedidos.
+   - Consultar historial de pedidos realizados.
 
 ---
 
 ### Estado Actual del Proyecto
 
-El proyecto está en fase de desarrollo del **MVP (Producto Mínimo Viable)**. Las carpetas y estructura iniciales están configuradas, y se ha implementado la conexión a la base de datos con SQLite3.
+El sistema está en la fase de desarrollo del **MVP (Producto Mínimo Viable)**. Se ha implementado la conexión a la base de datos y la estructura inicial de carpetas, junto con algunas funcionalidades básicas.
 
 ---
 
 ### Backlog de Tareas (Trello)
 
-Actualmente, las tareas en proceso para completar el MVP son:
+Actualmente, las tareas prioritarias del MVP son:
 
-- **Login**
-- **Registrar Usuario**
-- **Agregar Producto**
-- **Eliminar Producto**
-- **Editar Producto**
-- **Agregar Categoría**
-- **Eliminar Categoría**
-- **Editar Categoría**
-- **Visualizar Inventario**
-- **Realizar Pedido**
-- **Cancelar Pedido**
-- **Confirmar Orden de Pedido**
+- **Usuarios**
+  - Login
+  - Registro de usuarios
+
+- **Gestión de productos**
+  - Agregar, editar y eliminar productos.
+
+- **Gestión de categorías**
+  - Crear, modificar y eliminar categorías.
+
+- **Inventario y pedidos**
+  - Visualizar inventario.
+  - Realizar, cancelar y confirmar pedidos.
 
 [Acceder al Backlog en Trello](https://trello.com/invite/b/66e81fbbdd986ae76be41432/ATTI316dd4aa424008233ab8e7e63e6db5448F102F17/trabajo-python)
 
-
 ---
-
 
 ### GitHub y Versionado
 
-- El proyecto está gestionado mediante GitHub, con control de versiones para registrar cambios importantes en la estructura y desarrollo del sistema.
-- El primer commit incluye la configuración de las carpetas base, la estructura de la base de datos y el esquema de rutas inicial.
+El proyecto está gestionado en GitHub, utilizando control de versiones para documentar cambios importantes.
+
+- **Primer commit**: Configuración inicial de carpetas, base de datos y rutas principales.
 
 ---
 
 ### Documentación del Proyecto
 
-Para una descripción detallada de los requisitos y especificaciones del sistema, consulta el documento **SRS 1.1**: 
-[Especificación de Requisitos del Software (SRS) 1.1](https://docs.google.com/document/d/1NW1u7IR9rL5aLbes2KhzWpooiADpHZZXL9GZh_jC1Ac/edit?usp=sharing)
+- **Especificación de Requisitos (SRS 1.1)**:  
+  [Ver documento](https://docs.google.com/document/d/1NW1u7IR9rL5aLbes2KhzWpooiADpHZZXL9GZh_jC1Ac/edit?usp=sharing)
+
+---
+
+### Diagramas
+
+1. **Diagrama Entidad-Relación**  
+   Representa las relaciones entre productos, categorías y sucursales.  
+   [Visualizar diagrama](https://drive.google.com/file/d/1xe1qN12Ag5GsJhHbZIETTuqzBWr5H9Tt/view?usp=sharing)
+
+2. **Diagrama de Flujo: Creación de Productos**  
+   Describe el proceso para agregar nuevos productos y asociarlos a categorías.  
+   [Visualizar diagrama](https://drive.google.com/file/d/18f7bv5xovs5DMgGNtxE6sXY1eDpMWt4O/view?usp=sharing)
+
+3. **Diagrama de Flujo: Creación de Categorías**  
+   Explica el proceso para agregar y gestionar categorías dentro del sistema.  
+   [Visualizar diagrama](https://drive.google.com/file/d/1lrYm0kE8UjbqD7Qw6xXH3JdOS3DqIzvB/view?usp=sharing)
 
 ---
 
 ### Próximos pasos
 
-- Completar las tareas del MVP mencionadas en el backlog.
-- Realizar pruebas de las funcionalidades implementadas para asegurar una correcta gestión del inventario, pedidos y flujo de usuarios.
-
----
-**Diagramas**
-
-**Diagrama Entidad-Relación**: Se está trabajando en el diseño de la base de datos para representar las relaciones entre productos, categorías y sucursales.
-[Visualizar Diagrama](https://drive.google.com/file/d/1xe1qN12Ag5GsJhHbZIETTuqzBWr5H9Tt/view?usp=sharing)
-
-Diagrama de Flujo de Creación de Productos: Este diagrama describirá el proceso para agregar nuevos productos al sistema y cómo se relacionan con las categorías existentes.
-[Visualizar Diagrama](https://drive.google.com/file/d/18f7bv5xovs5DMgGNtxE6sXY1eDpMWt4O/view?usp=sharing)
-
-
-Diagrama de Flujo de Creación de Categorías: Este diagrama mostrará el proceso paso a paso para agregar y gestionar categorías dentro del sistema.
-[Visualizar Diagrama](https://drive.google.com/file/d/1lrYm0kE8UjbqD7Qw6xXH3JdOS3DqIzvB/view?usp=sharing)
-
-
+1. Completar las tareas pendientes del MVP.
+2. Realizar pruebas unitarias para validar las funcionalidades implementadas.
+3. Ampliar el sistema con nuevas funcionalidades tras el MVP, como reportes de inventario y métricas de pedidos.
